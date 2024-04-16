@@ -1,8 +1,20 @@
+package com.Accounts;
+
 public class Account {
 
     private String ID;
     private String Password;
     private Personalinfo PersInfo;
+
+    public Account() {
+    }
+
+    public Account(String ID, String name, int age, String gender) {
+        this.PersInfo = new Personalinfo(name, age, gender);
+        this.ID = ID;
+        this.Password = "password";
+    }
+
 
     public String getID() {
         return this.ID;
