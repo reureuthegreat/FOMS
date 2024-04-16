@@ -1,11 +1,19 @@
+package com.Accounts;
 import java.util.Scanner;
 
 public class StaffAccount extends Account {
 
 	private Account staff;
-	private String branch;
+    private String branch;
 
-	public void ManageOrder(Order) {
+    StaffAccount(){}
+
+    StaffAccount(String ID, String name, int age, String gender, String branch){
+        super(ID,name,age,gender);
+        this.branch = branch;
+    }
+
+	public void ManageOrder(/*Order order*/) {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("---------Order Management-----------");
 		System.out.println("1. View Order");
@@ -25,6 +33,17 @@ public class StaffAccount extends Account {
                 //Order.displayNewOrder
                 break;
             default:
-                System.out.println("Invalid choice!");
+                System.out.println("Invalid choice! Input choice again:");
+                choice = sc.nextInt();
         }
-	}
+        sc.close();
+    }
+
+    public void setBranch(String branch){
+        this.branch = branch;
+    }
+
+    public String getBranchName(){
+        return this.branch;
+    }
+}
