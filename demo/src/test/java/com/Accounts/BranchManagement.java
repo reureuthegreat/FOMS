@@ -5,13 +5,13 @@ import java.util.Scanner;
 
 public class BranchManagement {
 
-	private ArrayList<Branch> BranchList;
+	static ArrayList<Branch> BranchList;
 
 	BranchManagement(){
-		this.BranchList = new ArrayList<>();
+		BranchList = new ArrayList<>();
 	}
 
-	public void AddBranch() {
+	public boolean AddBranch() {
 		System.out.println("Please Enter Branch Name: ");
 		Scanner sc = new Scanner(System.in);
 		String BranchName = sc.nextLine();
@@ -19,11 +19,11 @@ public class BranchManagement {
 		int Quota = sc.nextInt();
 		Branch branch = new Branch(BranchName,Quota);
 		BranchList.add(branch);
-		System.out.println("Branch added succesfully");
 		sc.close();
+		return true;
 	}
 
-	public void RemoveBranch() {
+	public boolean RemoveBranch() {
 		System.out.println("Please enter the name of the Branch you would like to remove: ");
 		Scanner sc = new Scanner(System.in);
 		String BranchName = sc.nextLine();
@@ -32,11 +32,11 @@ public class BranchManagement {
 				BranchList.remove(branch);
 				System.out.println("Branch removed and closed successfully.");
 				sc.close();
-				return;
+				return true;
 			}
 		}
-		System.out.println("Failed to remove Branch.");
 		sc.close();
+		return false;
 	}
 
 	public Branch getBranchByName(String BranchName){
@@ -48,9 +48,4 @@ public class BranchManagement {
 		System.out.println("Branch does not exist!");
 		return null;
 	}
-
-	public ArrayList<Branch> getBranchs(){
-		return this.BranchList;
-	}
-
 }
