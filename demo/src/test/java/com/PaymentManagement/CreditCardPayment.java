@@ -2,7 +2,7 @@ package com.PaymentManagement;
 
 import java.util.Calendar;
 
-public class CreditCardPayment implements iPaymentMethod {
+public class CreditCardPayment implements iPaymentMethod, Payable {
     private String cardNumber;
     private String expiryDate;
     private String cvv;

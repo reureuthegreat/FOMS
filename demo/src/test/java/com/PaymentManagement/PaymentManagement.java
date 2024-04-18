@@ -1,5 +1,6 @@
 package com.PaymentManagement;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class PaymentManagement {
     private ArrayList<iPaymentMethod> paymentMethods;
@@ -20,8 +21,16 @@ public class PaymentManagement {
     }
 
     public void removePaymentMethod(String name) {
-        paymentMethods.removeIf(paymentMethod -> paymentMethod.getName().equals(name));
+        Iterator<iPaymentMethod> iterator = paymentMethods.iterator();
+        while (iterator.hasNext()) {
+            iPaymentMethod paymentMethod = iterator.next();
+            if (paymentMethod.getName().equals(name)) {
+                iterator.remove();
+                break; // Exit the loop after removing the first matching payment method
+            }
+        }
     }
+    
 
     public void displayPaymentMethods() {
         for (iPaymentMethod paymentMethod : paymentMethods) {
