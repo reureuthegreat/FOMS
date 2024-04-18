@@ -2,25 +2,29 @@ package com.PaymentManagement;
 import java.util.ArrayList;
 
 public class PaymentManagement {
-    ArrayList <PaymentMethod> PaymentMethods;
-    public PaymentManagement(){
-        this.PaymentMethods = new ArrayList<>();
+    private ArrayList<iPaymentMethod> paymentMethods;
+    private PaymentMethodFactory paymentMethodFactory;
+
+    public PaymentManagement() {
+        this.paymentMethods = new ArrayList<>();
+        this.paymentMethodFactory = new PaymentMethodFactory();
     }
 
-    public void addPaymentMethod(String name){
-        PaymentMethods.add(new PaymentMethod(name));
-    }
-
-    public void removePaymentMethod(String name){
-        for(PaymentMethod paymentMethod : PaymentMethods){
-            if(paymentMethod.getName().equals(name)){
-                PaymentMethods.remove(paymentMethod);
-            }
+    public void addPaymentMethod(String className, Object... params) {
+        iPaymentMethod paymentMethod = paymentMethodFactory.createPaymentMethod(className, params);
+        if (paymentMethod != null) {
+            paymentMethods.add(paymentMethod);
+        } else {
+            System.out.println("Failed to create payment method");
         }
     }
 
+    public void removePaymentMethod(String name) {
+        paymentMethods.removeIf(paymentMethod -> paymentMethod.getName().equals(name));
+    }
+
     public void displayPaymentMethods() {
-        for(PaymentMethod paymentMethod : PaymentMethods){
+        for (iPaymentMethod paymentMethod : paymentMethods) {
             System.out.printf("%s ", paymentMethod.getName());
         }
     }
