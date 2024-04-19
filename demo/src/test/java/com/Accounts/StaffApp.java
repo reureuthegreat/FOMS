@@ -34,10 +34,10 @@ public class StaffApp {
                         staff.displayOrder();
                         break;
                     case 2:
-                        staff.ViewOrder();
+                        staff.viewOrder();
                         break;
                     case 3:
-                        staff.ProcessOrder();
+                        staff.processOrder();
                         break;
                     case 4:
                         break;

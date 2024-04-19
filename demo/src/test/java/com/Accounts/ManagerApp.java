@@ -22,16 +22,17 @@ public class ManagerApp {
                     Manager.displayOrder();
                     break;
                 case 2:
-                    Manager.ViewOrder();
+                    Manager.viewOrder();
                     break;
                 case 3:
-                    Manager.ProcessOrder();
+                    Manager.processOrder();
                     break;
                 case 4:
                     Manager.ManageMenu();
                     break;
                 case 5:
-                Manager.displayStaffList(Manager.getBranchName());
+                    DisplayStaffList DSL = new DisplayStaffList();
+                    DSL.displaystafflist(Manager.getBranchName());
                     break;
                 case 6:
                     break;

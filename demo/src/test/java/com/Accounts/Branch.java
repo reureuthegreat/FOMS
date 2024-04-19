@@ -32,7 +32,7 @@ public class Branch {
 		System.out.println("Staff Quota: " + StaffQuota);
 		System.out.println("Number of Staffs: " + NumOfStaffs);
 		for(StaffAccount account : StaffList ){
-			System.out.println(account.getPersInfo().getName()+ " " + account.getPersInfo().getAge() + " " + account.getPersInfo().getGender());
+			System.out.println(account.getName()+ " " + account.getAge() + " " + account.getGender());
 		}
 	}
 
