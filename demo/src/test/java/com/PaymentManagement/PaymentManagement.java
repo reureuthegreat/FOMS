@@ -12,7 +12,7 @@ public class PaymentManagement {
     }
 
     public void addPaymentMethod(String className, Object... params) {
-        iPaymentMethod paymentMethod = paymentMethodFactory.createPaymentMethod(className, params);
+        iPaymentMethod paymentMethod = (iPaymentMethod)paymentMethodFactory.createPaymentMethod(className, params);
         if (paymentMethod != null) {
             paymentMethods.add(paymentMethod);
         } else {
