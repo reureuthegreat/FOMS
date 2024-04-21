@@ -11,7 +11,8 @@ public class FoodItemOperator implements IFoodItemOperator{
 	public static FoodItem createFoodItem() {
 		Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter new FoodItem name:");
+        try{
+		System.out.println("Enter new FoodItem name:");
         String name = scanner.next();
 
         System.out.println("Enter the new FoodItem category (Burger, Drink, SideDish, SetMeal):");
@@ -29,10 +30,20 @@ public class FoodItemOperator implements IFoodItemOperator{
 		System.out.println("1: Available");
 		System.out.println("0: Not Available");
 		int avail = scanner.nextInt();
-		if (avail == 1)
-			availability = true;
+		if (avail == 1) {
+            availability = true;
+        } else if (avail != 0) {
+            throw new IllegalArgumentException("Invalid input for availability. Please enter 1 for Available or 0 for Not Available.");
+        }
 		
 		return new FoodItem(name,price,description,category,availability);
+		}catch (Exception e) {
+			System.out.println("Error creating FoodItem: " + e.getMessage());
+			// Optionally, you can log the exception or handle it differently based on your needs
+			return null; // Return null to indicate that FoodItem creation failed
+		} finally {
+			scanner.close(); // Close the scanner in the finally block to ensure it's always closed
+		}
 	}
 	
 	public void modifyPrice(FoodItem foodItem) {
