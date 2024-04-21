@@ -13,7 +13,7 @@ public class CartManager implements ICartManager{
 	 // Helper method to add an item to the cart
     private void addCartItem(ArrayList<FoodItem> customerMenu, Cart cart) {
         Scanner scanner = new Scanner(System.in);
-        
+        try{
         System.out.println("Available Items:");
         for (int i = 0; i < customerMenu.size(); i++) {
             System.out.println((i + 1) + ". " + customerMenu.get(i).getName());
@@ -29,14 +29,19 @@ public class CartManager implements ICartManager{
             cart.addItem(selectedItem, quantity);
             System.out.println("Item added to cart.");
         } else {
-            System.out.println("Invalid item number.");
+            throw new IllegalArgumentException("Invalid item number")
+        }
+        }catch(Exception e){
+            System.out.println("Error in adding item " + e.getMessage());
+        }finally{
+            scanner.close();
         }
     }
 
     // Helper method to remove an item from the cart
     private void removeCartItem(Cart cart) {
         Scanner scanner = new Scanner(System.in);
-        
+        try{
         cart.displayCart();
         System.out.println("Enter the name of the item to remove:");
         String itemName = scanner.nextLine();
@@ -48,12 +53,18 @@ public class CartManager implements ICartManager{
                 return;
             } 
         }
-        System.out.println("Item not found in cart.");
+        throw new IllegalArgumentException("Item not found");
+        }catch(Exception e){
+            System.out.println("Error in removing item "+ e.getMessage());
+        }finally{
+            scanner.close();
+        }
     }
 
     // Helper method to update the quantity of an item in the cart
     private void updateCartItem(Cart cart) {
         Scanner scanner = new Scanner(System.in);
+        try{
         cart.displayCart();
         
         System.out.println("Enter the name of the item to update:");
@@ -69,7 +80,12 @@ public class CartManager implements ICartManager{
                 return;
             }
         }
-        System.out.println("Item not found in cart.");
+        throw new IllegalArgumentException("Item not found");
+        }catch(Exception e){
+            System.out.println("Error in removing item "+ e.getMessage());
+        }finally{
+            scanner.close();
+        }
     }
 	
 	public HashMap<FoodItem, Integer> shopping(ArrayList<FoodItem> customerMenu) {
