@@ -8,16 +8,16 @@ public class AdminApp {
     int choice;
     public void adminapp(AdminAccount Admin, StaffAccManagement staffAccManagement, BranchManagement branchManagement){
         do{
-            System.out.println("===========Admin===========\n"+
-                           "1. Manage Staff\n"+
-                           "2. Display Staff List((filter: branch, role, gender, age)\n"+
-                           "3. Assign Manager to a Branch\n"+
-                           "4. Promote Staff to Manager\n"+
-                           "5. Transfer Staff\n"+
-                           "6. Manage Payment"+
-                           "7. Manage Branch"+
-                           "8. Back\n"+
-                           "===========================");
+            System.out.println("==========Admin===========\n" +
+                   "1. Manage Staff\n" +
+                   "2. Display Staff List((filter: branch, role, gender, age)\n" +
+                   "3. Assign Manager to a Branch\n" +
+                   "4. Promote Staff to Manager\n" +
+                   "5. Transfer Staff\n" +
+                   "6. Manage Payment\n" +
+                   "7. Manage Branch\n" +
+                   "8. Log out\n" +
+                   "==========================\n");
             choice = sc.nextInt();
             switch(choice){
                 case 1:
@@ -26,7 +26,7 @@ public class AdminApp {
                     break;
                 case 2:
                     DisplayStaffList dStaffList = new DisplayStaffList();
-                    dStaffList.displaystafflist(); // calls the Display Staff List interface
+                    dStaffList.displaystafflist(staffAccManagement,branchManagement); // calls the Display Staff List interface
                     break;
                 case 3:
                     Admin.assignManager(staffAccManagement, branchManagement);//calls the Admin Account method

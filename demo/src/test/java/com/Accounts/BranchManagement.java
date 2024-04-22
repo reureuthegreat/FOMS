@@ -1,10 +1,11 @@
 package com.Accounts;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BranchManagement {
-
+	int Quota;
 	static ArrayList<Branch> BranchList;
 
 	BranchManagement(){
@@ -12,14 +13,34 @@ public class BranchManagement {
 	}
 
 	public boolean AddBranch() {
-		System.out.println("Please Enter Branch Name: ");
 		Scanner sc = new Scanner(System.in);
-		String BranchName = sc.nextLine();
-		System.out.println("Please enter Staff Quota for the " + BranchName + " branch.");
-		int Quota = sc.nextInt();
-		Branch branch = new Branch(BranchName,Quota);
-		BranchList.add(branch);
-		sc.close();
+		System.out.println("Please Enter Branch Name: ");
+		String branchName = sc.nextLine();
+		System.out.println("Please enter Staff Quota for the " + branchName + " branch.");
+
+		boolean validInput = false;
+		do {
+			try {
+				Quota = sc.nextInt();
+				validInput = true;
+			} catch (InputMismatchException ex) {
+				System.out.println("Please enter numbers only for Staff Quota.");
+				sc.nextLine(); // Clear the input buffer
+			}
+		} while (!validInput);
+
+		Branch branch = new Branch(branchName, Quota);
+
+		// Find the correct position to insert the new branch in ascending order of branchName
+		int index = 0;
+		for (Branch existingBranch : BranchList) {
+			if (branchName.compareToIgnoreCase(existingBranch.getBranchName()) < 0) {
+				break; // Found the correct position
+			}
+			index++;
+		}
+
+		BranchList.add(index, branch); // Insert the new branch at the correct position
 		return true;
 	}
 
@@ -31,12 +52,15 @@ public class BranchManagement {
 			if(branch.getBranchName().equals(BranchName)){
 				BranchList.remove(branch);
 				System.out.println("Branch removed and closed successfully.");
-				sc.close();
+
 				return true;
 			}
 		}
-		sc.close();
 		return false;
+	}
+
+	public static ArrayList<Branch> getBranchList() {
+		return BranchList;
 	}
 
 	public Branch getBranchByName(String BranchName){

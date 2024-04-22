@@ -1,6 +1,7 @@
 package com.Accounts;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 
 
@@ -11,7 +12,7 @@ public class StaffAccManagement {
     Scanner sc = new Scanner(System.in);
 	StaffAccManagement(){
 		this.AccList = new ArrayList<>();
-	};
+	}
 
 	public Account Login(){
 		System.out.println("Please enter your ID:");
@@ -20,11 +21,8 @@ public class StaffAccManagement {
 		String password = sc.nextLine();
 		for(Account Acc : AccList){
 			if(Acc.verifyID(ID)){
-				if(Acc.verifyPassword(password)){
+				if(Acc.verifyPassword(password)) {
 					return Acc;
-				}
-				else{
-					System.out.println("Wrong password!");
 				}
 			}
 		}
@@ -34,63 +32,81 @@ public class StaffAccManagement {
 
 	public boolean addAcc() {
 		Role role = null;
-		do{
-		System.out.println("===========Account Type===========\n"+
-							   "1. Staff\n"+
-							   "2. Manager\n"+
-							   "3. Admin\n"+
-							   "4. Back\n"+
-							   "===========================");
-		choice = sc.nextInt();
-		switch(choice){
-			case 1:
-				role = Role.STAFF;
-				break;
-			case 2:
-				role = Role.MANAGER;
-				break;
-			case 3:
-				role = Role.ADMIN;
-				break;
-			case 4:
-				role = null;
-				break;
-			default:
-				System.out.println("Plese select only 1,2,3 or 4.");
+		boolean isValidSelection = false;
+		do {
+			try {
+				System.out.println("===========Account Type===========\n" +
+                   "1. Staff\n" +
+                   "2. Manager\n" +
+                   "3. Admin\n" +
+                   "4. Cancel Account Creation\n" +
+                   "==========================\n");
+				choice = sc.nextInt();
+				sc.nextLine();
+				switch (choice) {
+					case 1:
+						role = Role.STAFF;
+						isValidSelection = true;
+						break;
+					case 2:
+						role = Role.MANAGER;
+						isValidSelection = true;
+						break;
+					case 3:
+						role = Role.ADMIN;
+						isValidSelection = true;
+						break;
+					case 4:
+						return false; // Exit without adding
+					default:
+						System.out.println("Please select only 1, 2, 3, or 4.");
+						break;
+				}
+				if (isValidSelection) {
+					System.out.println("Please enter Staff Name: ");
+					String name = sc.nextLine();
+					System.out.println("Please enter Staff ID:");
+					String ID = sc.nextLine();
+					System.out.println("Please enter Staff Age: ");
+					int age = sc.nextInt();
+					sc.nextLine();
+					System.out.println("Please enter the Staff's Gender");
+					String gender = sc.nextLine();
+					switch (choice) {
+						case 1:
+							System.out.println("Please enter the Staff's Branch");
+							String Branchname = sc.nextLine();
+							StaffAccount staff = new StaffAccount(ID, name, age, gender, role, Branchname);
+							addToAccListSortedByAge(staff);
+							return true;
+						case 2:
+							System.out.println("Please enter the Staff's Branch");
+							Branchname = sc.nextLine();
+							ManagerAccount Manager = new ManagerAccount(ID, name, age, gender, role, Branchname);
+							addToAccListSortedByAge(Manager);
+							return true;
+						case 3:
+							AdminAccount Admin = new AdminAccount(ID, name, age, role, gender);
+							addToAccListSortedByAge(Admin);
+							return true;
+					}
+				}
+			} catch (InputMismatchException ex) {
+				System.out.println("Invalid input. Please enter valid data.");
+				sc.nextLine(); // Clear the input buffer
+			}
+		} while (!isValidSelection);
+		return false;
+	}
+	private void addToAccListSortedByAge(Account account) {
+		int index = 0;
+		for (Account acc : AccList) {
+			if (account.getAge() > acc.getAge()) {
 				break;
 			}
-		}while(choice != 4);
-		if(choice == 4){
-			return false;
-		}else{
-			System.out.println("Please enter Staff Name: ");
-			String name = sc.nextLine();
-			System.out.println("Please enter Staff ID:");
-			String ID = sc.nextLine();
-			System.out.println("Please enter Staff Age: ");
-			int age = sc.nextInt();
-			System.out.println("Please enter the Staff's Gender");
-			char gender = sc.nextLine().charAt(0);
-			switch(choice){
-				case 1:
-					System.out.println("Please enter the Staff's Branch");
-					String Branchname = sc.nextLine();
-					StaffAccount  staff = new StaffAccount(ID,name,age,gender,role,Branchname);
-					AccList.add(staff);
-					return true;
-				case 2:
-					System.out.println("Please enter the Staff's Branch");
-					Branchname = sc.nextLine();
-					ManagerAccount Manager = new ManagerAccount(ID, name, age, gender, role, Branchname);
-					AccList.add(Manager);
-					return true;
-				case 3:
-					AdminAccount Admin = new AdminAccount(ID,name, age, role, gender);
-					AccList.add(Admin);
-					return true;
-			}
-			return false;
+			index++;
 		}
+		AccList.add(index, account);
 	}
 
 	public void editAcc() {
@@ -100,7 +116,7 @@ public class StaffAccManagement {
 		System.out.println("1: Change Staff ID");
 		System.out.println("2: Change password");
 		System.out.println("3: Change Branch");
-		System.out.println("4: Quit");;
+		System.out.println("4: Quit");
 		int choice = sc.nextInt();
 		do{
 		switch(choice){
@@ -150,17 +166,16 @@ public class StaffAccManagement {
 				choice = sc.nextInt();
 		}
 		}while(choice!=4);
-
-		sc.close();
 	}
 
 	public boolean removeAcc() {
 		System.out.println("Enter staff ID you would like to remove:");
 		String ID = sc.nextLine();
 		for(Account Acc : AccList){
-			if (Acc.verifyID(ID))
-			AccList.remove(Acc);
-			return true;
+			if (Acc.verifyID(ID)){
+				AccList.remove(Acc);
+				return true;
+			}
 		}
 		return false;
 	}
@@ -177,12 +192,15 @@ public class StaffAccManagement {
 		}
 		return null;
 	}
+	public void setAccList(ArrayList<Account> AL){
+		this.AccList = AL;
+	}
 
-	public void removeAcc(StaffAccount Acc){
+	public void removeAcc(Account Acc){
 		AccList.remove(Acc);
 	}
-	public void addAcc(StaffAccount Acc){
-		AccList.add(Acc);
+	public void addAcc(Account Acc){
+		addToAccListSortedByAge(Acc);
 	}
 
 }

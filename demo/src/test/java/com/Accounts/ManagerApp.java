@@ -6,7 +6,7 @@ public class ManagerApp {
     public ManagerApp(){}
     Scanner sc = new Scanner(System.in);
     int choice;
-    public void managerapp(ManagerAccount Manager){
+    public void managerapp(ManagerAccount Manager,BranchManagement branchManagement, StaffAccManagement staffAccManagement){
         do{
             System.out.println("===========Manager===========\n"+
                            "1. Display Order\n"+
@@ -32,7 +32,8 @@ public class ManagerApp {
                     break;
                 case 5:
                     DisplayStaffList DSL = new DisplayStaffList();
-                    DSL.displaystafflist(Manager.getBranchName());
+                    Branch branch = branchManagement.getBranchByName(Manager.getBranchName());
+                    DSL.displaystafflist(branch,staffAccManagement);
                     break;
                 case 6:
                     break;
@@ -41,6 +42,6 @@ public class ManagerApp {
                     break;
             }
 
-        }while(choice !=4);
+        }while(choice !=6);
     }
 }

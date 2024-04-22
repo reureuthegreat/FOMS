@@ -1,5 +1,9 @@
 package com.Accounts;
 
+import javax.xml.crypto.Data;
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class StaffApp {
@@ -8,7 +12,15 @@ public class StaffApp {
     public StaffApp(){}
 
     public void staffapp(){
+        Database DB = new Database();
         StaffAccManagement staffaccmanagement = new StaffAccManagement();
+        try {
+            ArrayList<Account> AL = DB.readAccounts("/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/Staff.txt");
+            staffaccmanagement.setAccList(AL);
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
         BranchManagement branchManagement = new BranchManagement();
         Account staff1 = staffaccmanagement.Login();
         if(staff1==null){
@@ -17,7 +29,7 @@ public class StaffApp {
         else if(staff1.getRole() == Role.MANAGER){
             ManagerAccount Manager = (ManagerAccount) staff1;
             ManagerApp mA = new ManagerApp();
-            mA.managerapp(Manager);//Calls the Manager Application Interface
+            mA.managerapp(Manager,branchManagement,staffaccmanagement);//Calls the Manager Application Interface
         }
         else if(staff1.getRole() == Role.STAFF){
             StaffAccount staff = (StaffAccount) staff1;
@@ -55,6 +67,12 @@ public class StaffApp {
         }
         else{
             return;
+        }
+        try {
+            String filename = "/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/Staff.txt";
+            DB.saveAccounts(filename, staffaccmanagement.getStaffAccounts());
+        }catch(IOException e){
+            e.printStackTrace();
         }
     }
 }
