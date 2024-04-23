@@ -1,10 +1,24 @@
 package com.Accounts;
+import javax.xml.crypto.Data;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class FOMSapp {
-    public static void main(String[] args) {
-        System.out.println("Welcome to KFC");
+    public static void main(String[] args) throws IOException {
+        System.out.println("Welcome to KFC!");
+        System.out.println(" .----------------.  .----------------.  .----------------. \n" +
+                "| .--------------. || .--------------. || .--------------. |\n" +
+                "| |  ___  ____   | || |  _________   | || |     ______   | |\n" +
+                "| | |_  ||_  _|  | || | |_   ___  |  | || |   .' ___  |  | |\n" +
+                "| |   | |_/ /    | || |   | |_  \\_|  | || |  / .'   \\_|  | |\n" +
+                "| |   |  __'.    | || |   |  _|      | || |  | |         | |\n" +
+                "| |  _| |  \\ \\_  | || |  _| |_       | || |  \\ `.___.'\\  | |\n" +
+                "| | |____||____| | || | |_____|      | || |   `._____.'  | |\n" +
+                "| |              | || |              | || |              | |\n" +
+                "| '--------------' || '--------------' || '--------------' |\n" +
+                " '----------------'  '----------------'  '----------------' ");
+        System.out.println("");
         Scanner sc = new Scanner(System.in);
         int choice;
         do{
@@ -37,6 +51,7 @@ public class FOMSapp {
 					break;
             }
         }while(choice!=3);
+
         sc.close();
     }
 }

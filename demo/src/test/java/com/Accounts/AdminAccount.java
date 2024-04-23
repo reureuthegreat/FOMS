@@ -5,7 +5,7 @@ public class AdminAccount extends Account{
 
 	AdminAccount(){}
 
-	AdminAccount(String ID, String name, int age,Role role, char gender){
+	AdminAccount(String ID, String name, int age,Role role, String gender){
 		super(ID,name,age,role,gender);
 	}
 
@@ -19,23 +19,16 @@ public class AdminAccount extends Account{
 		Account Acc = staffaccmanagement.findStaffAccount(ManagerID);
 		StaffAccount Acc1 = (StaffAccount) Acc;
  		if((Acc1.getRole()== Role.MANAGER) && (Acc1!=null)){
-			OldBranch = Acc1.getBranchName();
 			Acc1.setBranch(BranchName);
-			Branch branch = branchManagement.getBranchByName(BranchName);
-			branch.addStaff(Acc1);
-			branch = branchManagement.getBranchByName(OldBranch);
-			branch.removeStaff(Acc1);
-			System.out.println("Manager Assigned to " + BranchName + " branch succesffuly.");
-			sc.close();
+			System.out.println("Manager Assigned to " + BranchName + " branch successfully.");
 			return true;
 		}
-		else if(Acc == null){
+		else if(Acc1 == null){
 			System.out.println("Staff not found!");
 		}
 		else{
 			System.out.println("Staff is not a Manager. Promote first.");
 		}
-		sc.close();
 		return false;
 	}
 
@@ -47,7 +40,7 @@ public class AdminAccount extends Account{
 		if((Acc!=null) && (Acc instanceof StaffAccount)){
 			String name = Acc.getName();
 			int Age = Acc.getAge();
-			char gender = Acc.getGender();
+			String gender = Acc.getGender();
 			String branch = Acc.getBranchName();
 			String password = Acc.getPassword();
 			Role role = Role.MANAGER;
@@ -56,35 +49,26 @@ public class AdminAccount extends Account{
 			staffaccmanagement.removeAcc(Acc);
 			staffaccmanagement.addAcc(Manager);
 			System.out.println("Staff promoted successfully!");
-		}
-		else if(Acc== null){
+		} else if(Acc == null){
 			System.out.println("Staff not found!");
 		}
 		else{
 			System.out.println("Not a staff! Can't be promoted to Manager.");
 		}
-		sc.close();
 		return;
 	}
 
 	public boolean transferStaff(StaffAccManagement staffaccmanagement, BranchManagement branchManagement) {
 		String OldBranch;
-		System.out.println("Please enter the Manager you want to assign: ");
+		System.out.println("Please enter the Staff ID you want to transfer: ");
 		Scanner sc=  new Scanner(System.in);
-		String ManagerID = sc.nextLine();
-		System.out.println("Please enter the name of the branch you are assigning them to: ");
+		String StaffID = sc.nextLine();
+		System.out.println("Please enter the name of the branch you are transferring them to: ");
 		String BranchName = sc.nextLine();
-		StaffAccount Acc = (StaffAccount) staffaccmanagement.findStaffAccount(ManagerID);
-		if(Acc instanceof ManagerAccount && (Acc!=null)){
-			OldBranch = Acc.getBranchName();
+		StaffAccount Acc = (StaffAccount) staffaccmanagement.findStaffAccount(StaffID);
+		if(Acc!=null){
 			Acc.setBranch(BranchName);
-			Branch branch = branchManagement.getBranchByName(BranchName);
-			branch.addStaff(Acc);
-			branch = branchManagement.getBranchByName(OldBranch);
-			branch.removeStaff(Acc);
-			System.out.println("Manager Assigned to " + BranchName + " branch succesffuly.");
-			sc.close();
-			return true;
+			System.out.println("Staff Assigned to " + BranchName + " branch successfully.");
 		}
 		else if(Acc == null){
 			System.out.println("Staff not found!");
@@ -92,8 +76,11 @@ public class AdminAccount extends Account{
 		else{
 			System.out.println("Staff is not a Manager. Promote first.");
 		}
-		sc.close();
 		return false;
+	}
+
+	public String getBranchName(){
+		return "None";
 	}
 }
 

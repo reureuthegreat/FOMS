@@ -7,7 +7,7 @@ public class StaffAccount extends Account {
 
     StaffAccount(){}
 
-    StaffAccount(String ID, String name, int age, char gender,Role role, String branch){
+    StaffAccount(String ID, String name, int age, String gender,Role role, String branch){
         super(ID,name,age,role,gender);
         this.branch = branch;
     }

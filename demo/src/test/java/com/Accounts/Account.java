@@ -1,18 +1,19 @@
 package com.Accounts;
 
-public class Account {
+public abstract class Account {
 
     private String ID;
     private String Password;
     private String Name;
     private int age;
-    private char gender;
+    private String gender;
     private  Role role;
+
 
     public Account() {
     }
 
-    public Account(String ID, String name, int age,Role role, char gender) {
+    public Account(String ID, String name, int age,Role role, String gender) {
         this.Name = name;
         this.age = age;
         this.gender = gender;
@@ -49,10 +50,10 @@ public class Account {
     public void setAge(int Age){
         this.age = Age;
     }
-    public char getGender(){
+    public String getGender(){
         return this.gender;
     }
-    public void setGender(char gender){
+    public void setGender(String gender){
         this.gender = gender;
     }
     public Role getRole(){
@@ -69,4 +70,6 @@ public class Account {
     public boolean verifyID(String inputID) {
         return inputID.equals(this.ID);
     }
+
+    public abstract String getBranchName();
 }
