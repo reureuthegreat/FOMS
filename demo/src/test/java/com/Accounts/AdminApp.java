@@ -16,7 +16,8 @@ public class AdminApp {
                    "5. Transfer Staff\n" +
                    "6. Manage Payment\n" +
                    "7. Manage Branch\n" +
-                   "8. Log out\n" +
+                   "8. Change Password\n"+
+                   "9. Log out\n" +
                    "==========================\n");
             choice = sc.nextInt();
             switch(choice){
@@ -45,9 +46,15 @@ public class AdminApp {
                     MBA.managebranchapp(branchManagement);
                     break;
                 case 8:
+                    System.out.println("Enter your new password.");
+                    String pw = sc.nextLine();
+                    Admin.setPassword(pw);
+                    System.out.println("Password has been changed successfully.");
+                    break;
+                case 9:
                     break;
                 default:
-                    System.out.println("Please enter 1,2,3,4,5,6,7 or 8.");
+                    System.out.println("Please enter 1,2,3,4,5,6,7,8 or 9.");
                     break;
             }
         }while(choice !=8);
