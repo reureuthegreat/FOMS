@@ -39,7 +39,8 @@ public class AdminApp {
                     Admin.transferStaff(staffAccManagement, branchManagement);
                     break;
                 case 6:
-                    System.out.println("Payment Management"); // TODO
+                    PaymentManagementApp PMA = new PaymentManagementApp();
+                    PMA.paymentmanagementapp();//Calls the PaymentManagementApp Interface
                     break;
                 case 7:
                     ManageBranchApp MBA = new ManageBranchApp();
