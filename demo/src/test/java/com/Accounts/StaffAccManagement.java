@@ -101,7 +101,7 @@ public class StaffAccManagement {
 	private void addToAccListSortedByAge(Account account) {
 		int index = 0;
 		for (Account acc : AccList) {
-			if (account.getAge() > acc.getAge()) {
+			if (account.getAge() < acc.getAge()) {
 				break;
 			}
 			index++;
