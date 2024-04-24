@@ -59,6 +59,7 @@ public class AdminApp {
                     System.out.println("Please enter 1,2,3,4,5,6,7,8 or 9.");
                     break;
             }
-        }while(choice !=8);
+        }while(choice !=9
+        );
     }
 }

@@ -172,6 +172,11 @@ public class BranchSystem{
 	    }
 	}
 
-   
-    
+	public Menu getMenu() {
+		return menu;
+	}
+
+	public void setMenu(Menu menu) {
+		this.menu = menu;
+	}
 }

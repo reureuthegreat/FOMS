@@ -151,17 +151,19 @@ public class DisplayStaffList {
 		ArrayList<Account> AccList= staffAccManagement.getStaffAccounts();
 		index = 1;
 		for(Account Acc : AccList){
-			System.out.println(index+ ".	Staff Name: " + Acc.getName());
-			Role role = Acc.getRole();
-			switch(role){
-				case STAFF:
-					System.out.println("	Staff Type: STAFF");
-					break;
-				case MANAGER:
-					System.out.println("	Staff Type: Manager");
-					break;
+			if(Acc.getBranchName().compareTo(branch.getBranchName()) == 0){
+				System.out.println(index+ ".	Staff Name: " + Acc.getName());
+				Role role = Acc.getRole();
+				switch(role){
+					case STAFF:
+						System.out.println("	Staff Type: STAFF");
+						break;
+					case MANAGER:
+						System.out.println("	Staff Type: Manager");
+						break;
+				}
+				index++;
 			}
-			index++;
 		}
 
     }

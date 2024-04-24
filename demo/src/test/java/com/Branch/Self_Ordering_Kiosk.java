@@ -88,8 +88,11 @@ public class Self_Ordering_Kiosk {
 		Order temp_order = new Order(items, dine_in);
 					
 		// 6. PAYMENT HERE
+		PaymentApp PA = new PaymentApp();
+		PA.paymentapp(temp_order.calculatePrice());
 		
-		// 7. Print out the Recipt
+		// 7. Print out the Receipt
+		temp_order.DisplayOrder();
 					
 		// 8. Send the order to the branch system
 		branchSystem.addOrder(temp_order);	

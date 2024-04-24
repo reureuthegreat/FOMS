@@ -5,5 +5,6 @@ Mary lee|MaryL|STAFF|F|44|JE
 Kumar Blackmore|kumarB|STAFF|M|32|NTU
 Alica Ang|AlicaA|MANAGER|F|27|JE
 Alexei|Alexei|MANAGER|M|25|NTU
-Bryan|bryan2|MANAGER|M|22|NTU
-Joan|Joan22|STAFF|F|21|NTU
+Bryan|bryan2|MANAGER|M|22|JP
+Jerry|Jerry22|MANAGER|M|22|NTU
+Joan|Joan22|STAFF|F|21|JE

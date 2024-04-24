@@ -11,15 +11,5 @@ public class ManagerAccount extends StaffAccount {
         super(ID,name,age,gender,role,branch);
     }
 
-	public void ManageMenu(){}
-	
-	public Branch getBranch(BranchManagement branchManagement){
-		String BranchName = this.getBranchName();
-		return branchManagement.getBranchByName(BranchName);
-	}
 
-
-	public void MenuManagement(){
-
-	}
 }

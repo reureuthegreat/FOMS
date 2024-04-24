@@ -167,7 +167,7 @@ public class Database {
         }
         write(filename, alw);
     }
-    public static ArrayList<FoodItem> readMenu(String filename , String branchname) throws IOException {
+    public static ArrayList<FoodItem> readMenu(String filename) throws IOException {
         // read String from text file
         ArrayList<String> stringArray = (ArrayList<String>) read(filename);
         ArrayList<FoodItem> alr = new ArrayList();// to store Professors data
@@ -181,9 +181,8 @@ public class Database {
             String desc = star.nextToken().trim(); // Item desc
             String category = star.nextToken().trim(); // Item Category
             String avail = star.nextToken().trim(); // Item availability
-            String Loc = star.nextToken().trim(); // ITEM Location
             boolean availability;
-            if(avail.compareTo("TRUE")==0){
+            if(avail.compareTo("true")==0){
                 availability = true;
             }else{
                 availability = false;
@@ -193,30 +192,30 @@ public class Database {
             if (category.compareTo("BURGER") == 0) {
                 cat = Category.BURGER;
                 food = new FoodItem(name,price,desc,cat,availability);
+                alr.add(food);
             } else if (category.compareTo("DRINK") == 0) {
                 cat = Category.DRINK;
                 food = new FoodItem(name,price,desc,cat,availability);
+                alr.add(food);
             } else if (category.compareTo("SIDEDISH") == 0) {
                 cat = Category.SIDEDISH;
                 food = new FoodItem(name,price,desc,cat,availability);
+                alr.add(food);
             } else if(category.compareTo("SETMEAL") == 0) {
                 cat = Category.SETMEAL;
                 food = new FoodItem(name,price,desc,cat,availability);
+                alr.add(food);
             }
             else {
                 System.out.println("Role is unknown!");
             }
-            if(branchname.compareTo(Loc) == 0){
-                if(food!=null) {
-                    alr.add(food);
-                }
-            }
+
         }
         return alr;
     }
 
     public static void saveMenu(String filename, List al) throws IOException {
-        List alw = new ArrayList();// to store Accounts data
+        List alw = new ArrayList();// to store Menu data
 
         for (int i = 0; i < al.size(); i++) {
             FoodItem food = (FoodItem) al.get(i);
@@ -230,7 +229,6 @@ public class Database {
             st.append(food.getCategory());
             st.append(SEPARATOR);
             st.append(food.getAvailability());
-            st.append(SEPARATOR);
 
             alw.add(st.toString());
         }

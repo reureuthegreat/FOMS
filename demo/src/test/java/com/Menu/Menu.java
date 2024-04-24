@@ -11,7 +11,6 @@ public class Menu{
     protected ArrayList<FoodItem> customer_menu;
 
     public Menu() {
-        
         this.menu = new ArrayList<FoodItem>();
         this.customer_menu = new ArrayList<FoodItem>();
     }
@@ -54,4 +53,9 @@ public class Menu{
     public void setMenu(ArrayList<FoodItem> menu) {
         this.menu = menu;
     }
+
+    public void setCustomer_menu(ArrayList<FoodItem> customer_menu) {
+        this.customer_menu = customer_menu;
+    }
 }
+

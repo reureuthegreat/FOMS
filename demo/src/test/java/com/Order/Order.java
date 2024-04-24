@@ -73,6 +73,13 @@ public class Order {
         System.out.println("+-------------------------------------------+");
     }
 
-    
-   
+    public double calculatePrice(){
+        double totalPrice = 0;
+        for (FoodItem item : items.keySet()) {
+            int quantity = items.get(item); // Get quantity of the item
+
+            totalPrice += item.getPrice() * quantity; // Add item price to total price
+        }
+        return totalPrice;
+    }
 }
