@@ -1,4 +1,6 @@
 package com.Accounts;
+import com.Branch.Branch;
+
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -16,6 +18,8 @@ public class BranchManagement {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Please Enter Branch Name: ");
 		String branchName = sc.nextLine();
+		System.out.println("Plesae enter Location of Branch:");
+		String Location = sc.nextLine();
 		System.out.println("Please enter Staff Quota for the " + branchName + " branch.");
 
 		boolean validInput = false;
@@ -29,7 +33,7 @@ public class BranchManagement {
 			}
 		} while (!validInput);
 
-		Branch branch = new Branch(branchName, Quota);
+		Branch branch = new Branch(branchName, Quota,Location);
 
 		// Find the correct position to insert the new branch in ascending order of branchName
 		int index = 0;
@@ -72,4 +76,9 @@ public class BranchManagement {
 		System.out.println("Branch does not exist!");
 		return null;
 	}
+
+	public static void setBranchList(ArrayList<Branch> branchList) {
+		BranchList = branchList;
+	}
+
 }

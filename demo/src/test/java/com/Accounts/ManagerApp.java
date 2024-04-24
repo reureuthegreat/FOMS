@@ -1,4 +1,7 @@
 package com.Accounts;
+import com.Branch.Branch;
+import com.Branch.BranchSystem;
+
 import java.util.Scanner;
 
 public class ManagerApp {
@@ -28,11 +31,13 @@ public class ManagerApp {
                     Manager.processOrder();
                     break;
                 case 4:
-                    Manager.ManageMenu();
+                    Branch branch = branchManagement.getBranchByName(Manager.getBranchName());
+                    BranchSystem BS = branch.getBranchSystem();
+                    BS.Branch_Menu_Management();
                     break;
                 case 5:
                     DisplayStaffList DSL = new DisplayStaffList();
-                    Branch branch = branchManagement.getBranchByName(Manager.getBranchName());
+                    branch = branchManagement.getBranchByName(Manager.getBranchName());
                     DSL.displaystafflist(branch,staffAccManagement);
                     break;
                 case 6:

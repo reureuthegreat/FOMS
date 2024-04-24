@@ -1,5 +1,6 @@
 package com.Accounts;
 
+
 import java.util.Scanner;
 
 public class AdminApp {
@@ -9,16 +10,16 @@ public class AdminApp {
     public void adminapp(AdminAccount Admin, StaffAccManagement staffAccManagement, BranchManagement branchManagement){
         do{
             System.out.println("==========Admin===========\n" +
-                   "1. Manage Staff\n" +
-                   "2. Display Staff List((filter: branch, role, gender, age)\n" +
-                   "3. Assign Manager to a Branch\n" +
-                   "4. Promote Staff to Manager\n" +
-                   "5. Transfer Staff\n" +
-                   "6. Manage Payment\n" +
-                   "7. Manage Branch\n" +
-                   "8. Change Password\n"+
-                   "9. Log out\n" +
-                   "==========================\n");
+                    "1. Manage Staff\n" +
+                    "2. Display Staff List((filter: branch, role, gender, age)\n" +
+                    "3. Assign Manager to a Branch\n" +
+                    "4. Promote Staff to Manager\n" +
+                    "5. Transfer Staff\n" +
+                    "6. Manage Payment\n" +
+                    "7. Manage Branch\n" +
+                    "8. Change Password\n"+
+                    "9. Log out\n" +
+                    "==========================\n");
             choice = sc.nextInt();
             switch(choice){
                 case 1:

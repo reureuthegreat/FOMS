@@ -1,0 +1,3 @@
+NTU|North Spine Plaza|8
+JP|Jurong Point|15
+JE|Jurong East|11

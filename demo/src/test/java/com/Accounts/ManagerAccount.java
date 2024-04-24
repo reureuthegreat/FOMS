@@ -1,6 +1,7 @@
 package com.Accounts;
 
 
+import com.Branch.Branch;
 
 public class ManagerAccount extends StaffAccount {
 	ManagerAccount(){

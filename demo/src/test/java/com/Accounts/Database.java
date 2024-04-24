@@ -8,6 +8,9 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import com.Branch.Branch;
+import com.FoodItem.FoodItem;
+import com.Category.Category;
 
 
 /**
@@ -78,7 +81,7 @@ public class Database {
 
     // an example of saving
     public static void saveAccounts(String filename, List al) throws IOException {
-        List alw = new ArrayList();// to store Professors data
+        List alw = new ArrayList();// to store Accounts data
 
         for (int i = 0; i < al.size(); i++) {
             Account Acc = (Account) al.get(i);
@@ -129,4 +132,109 @@ public class Database {
         }
         return data;
     }
+
+    public static ArrayList<Branch> readBranch(String filename) throws IOException {
+        // read String from text file
+        ArrayList<String> stringArray = (ArrayList<String>) read(filename);
+        ArrayList<Branch> alr = new ArrayList();// to store Professors data
+
+        for (int i = 0; i < stringArray.size(); i++) {
+            String st = (String) stringArray.get(i);
+            // get individual 'fields' of the string separated by SEPARATOR
+            StringTokenizer star = new StringTokenizer(st, SEPARATOR);    // pass in the string to the string tokenizer using delimiter ","
+
+            String name = star.nextToken().trim(); // Branch name
+            String Location = star.nextToken().trim(); // Branch Location
+            int Quota = Integer.parseInt(star.nextToken().trim()); // Staff Quota
+            Branch branch = new Branch(name,Quota,Location);
+            alr.add(branch);
+        }
+        return alr;
+    }
+
+    public static void saveBranchs(String filename, List al) throws IOException {
+        List alw = new ArrayList();// to store Branch data
+
+        for (int i = 0; i < al.size(); i++) {
+            Branch BR = (Branch) al.get(i);
+            StringBuilder st = new StringBuilder();
+            st.append(BR.getBranchName().trim());
+            st.append(SEPARATOR);
+            st.append(BR.getLocation().trim());
+            st.append(SEPARATOR);
+            st.append(BR.getStaffQuota());
+            alw.add(st.toString());
+        }
+        write(filename, alw);
+    }
+    public static ArrayList<FoodItem> readMenu(String filename , String branchname) throws IOException {
+        // read String from text file
+        ArrayList<String> stringArray = (ArrayList<String>) read(filename);
+        ArrayList<FoodItem> alr = new ArrayList();// to store Professors data
+
+        for (int i = 0; i < stringArray.size(); i++) {
+            String st = (String) stringArray.get(i);
+            // get individual 'fields' of the string separated by SEPARATOR
+            StringTokenizer star = new StringTokenizer(st, SEPARATOR);    // pass in the string to the string tokenizer using delimiter ","
+            String name = star.nextToken().trim(); // Item name
+            double price = Double.parseDouble(star.nextToken().trim()); // Item Price
+            String desc = star.nextToken().trim(); // Item desc
+            String category = star.nextToken().trim(); // Item Category
+            String avail = star.nextToken().trim(); // Item availability
+            String Loc = star.nextToken().trim(); // ITEM Location
+            boolean availability;
+            if(avail.compareTo("TRUE")==0){
+                availability = true;
+            }else{
+                availability = false;
+            }
+            Category cat;
+            FoodItem food = null;
+            if (category.compareTo("BURGER") == 0) {
+                cat = Category.BURGER;
+                food = new FoodItem(name,price,desc,cat,availability);
+            } else if (category.compareTo("DRINK") == 0) {
+                cat = Category.DRINK;
+                food = new FoodItem(name,price,desc,cat,availability);
+            } else if (category.compareTo("SIDEDISH") == 0) {
+                cat = Category.SIDEDISH;
+                food = new FoodItem(name,price,desc,cat,availability);
+            } else if(category.compareTo("SETMEAL") == 0) {
+                cat = Category.SETMEAL;
+                food = new FoodItem(name,price,desc,cat,availability);
+            }
+            else {
+                System.out.println("Role is unknown!");
+            }
+            if(branchname.compareTo(Loc) == 0){
+                if(food!=null) {
+                    alr.add(food);
+                }
+            }
+        }
+        return alr;
+    }
+
+    public static void saveMenu(String filename, List al) throws IOException {
+        List alw = new ArrayList();// to store Accounts data
+
+        for (int i = 0; i < al.size(); i++) {
+            FoodItem food = (FoodItem) al.get(i);
+            StringBuilder st = new StringBuilder();
+            st.append(food.getName().trim());
+            st.append(SEPARATOR);
+            st.append(food.getPrice());
+            st.append(SEPARATOR);
+            st.append(food.getDescription());
+            st.append(SEPARATOR);
+            st.append(food.getCategory());
+            st.append(SEPARATOR);
+            st.append(food.getAvailability());
+            st.append(SEPARATOR);
+
+            alw.add(st.toString());
+        }
+        write(filename, alw);
+    }
+
 }

@@ -1,11 +1,47 @@
 package com.Accounts;
 import javax.xml.crypto.Data;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import com.Branch.Branch;
+import com.Branch.BranchSystem;
+import com.FoodItem.FoodItem;
+import com.Menu.Menu;
 
 public class FOMSapp {
     public static void main(String[] args) throws IOException {
+        Database DB = new Database();
+        StaffAccManagement staffaccmanagement = new StaffAccManagement();
+        BranchManagement branchManagement = new BranchManagement();
+        try {
+            ArrayList<Account> AL = DB.readAccounts("/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/Staff.txt");
+            staffaccmanagement.setAccList(AL);
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            ArrayList<Branch> ALB = DB.readBranch("/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/Branch.txt");
+            branchManagement.setBranchList(ALB);
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            ArrayList<Branch> BRList= BranchManagement.getBranchList();
+            for(Branch br:BRList){
+                String name = br.getBranchName();
+                ArrayList<FoodItem> ALF = DB.readMenu("/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/Menu.txt" ,name);
+                BranchSystem bs = br.getBranchSystem();
+                Menu menu = new Menu();
+                menu.setMenu(ALF);
+                bs.setMenu(menu);
+            }
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
         System.out.println("Welcome to KFC!");
         System.out.println(" .----------------.  .----------------.  .----------------. \n" +
                 "| .--------------. || .--------------. || .--------------. |\n" +
@@ -39,12 +75,27 @@ public class FOMSapp {
 			}
             switch(choice){
                 case 1:
+                    sc.nextLine();
+                    CustomerApp CA = new CustomerApp();
+                    CA.customerapp(branchManagement);
                     break;
                 case 2:
                     StaffApp sA = new StaffApp();
-                    sA.staffapp(); // Calls the Staff Application interface
+                    sA.staffapp(staffaccmanagement,branchManagement); // Calls the Staff Application interface
                     break;
                 case 3:
+                    try {
+                        String filename = "/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/Staff.txt";
+                        DB.saveAccounts(filename, staffaccmanagement.getStaffAccounts());
+                    }catch(IOException e){
+                        e.printStackTrace();
+                    }
+                    try {
+                        String filename = "/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/Branch.txt";
+                        DB.saveBranchs(filename, BranchManagement.getBranchList());
+                    }catch(IOException e){
+                        e.printStackTrace();
+                    }
                     break;
                 default:
 					System.out.println("Please Enter 1,2 or 3");

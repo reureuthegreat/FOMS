@@ -35,12 +35,12 @@ public class StaffAccManagement {
 		boolean isValidSelection = false;
 		do {
 			try {
-				System.out.println("===========Account Type===========\n" +
-                   "1. Staff\n" +
-                   "2. Manager\n" +
-                   "3. Admin\n" +
-                   "4. Cancel Account Creation\n" +
-                   "==========================\n");
+				System.out.println("==========Account Type===========");
+				System.out.println("1. Staff");
+				System.out.println("2. Manager");
+				System.out.println("3. Admin");
+				System.out.println("4. Cancel Account Creation");
+				System.out.println("==========================");
 				choice = sc.nextInt();
 				sc.nextLine();
 				switch (choice) {
@@ -101,7 +101,7 @@ public class StaffAccManagement {
 	private void addToAccListSortedByAge(Account account) {
 		int index = 0;
 		for (Account acc : AccList) {
-			if (account.getAge() < acc.getAge()) {
+			if (account.getAge() > acc.getAge()) {
 				break;
 			}
 			index++;

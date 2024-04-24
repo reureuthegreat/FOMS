@@ -11,17 +11,7 @@ public class StaffApp {
     Scanner sc = new Scanner(System.in);
     public StaffApp(){}
 
-    public void staffapp(){
-        Database DB = new Database();
-        StaffAccManagement staffaccmanagement = new StaffAccManagement();
-        try {
-            ArrayList<Account> AL = DB.readAccounts("/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/Staff.txt");
-            staffaccmanagement.setAccList(AL);
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
-        BranchManagement branchManagement = new BranchManagement();
+    public void staffapp(StaffAccManagement staffaccmanagement, BranchManagement branchManagement){
         Account staff1 = staffaccmanagement.Login();
         if(staff1==null){
             return;
@@ -67,12 +57,6 @@ public class StaffApp {
         }
         else{
             return;
-        }
-        try {
-            String filename = "/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/Staff.txt";
-            DB.saveAccounts(filename, staffaccmanagement.getStaffAccounts());
-        }catch(IOException e){
-            e.printStackTrace();
         }
     }
 }
