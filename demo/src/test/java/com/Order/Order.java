@@ -17,7 +17,6 @@ public class Order {
     protected LocalTime order_time;
     protected LocalTime collection_deadline;
     protected HashMap<FoodItem, Integer> items;
-    protected DishStatus status;
     protected Boolean option;
 
     /*
@@ -31,9 +30,8 @@ public class Order {
         this.order_id = lastOrderId;
         this.order_date = LocalDate.now(); // Set order_date to the current date
         this.order_time = LocalTime.now(); // Set order_time to the current time
-        this.collection_deadline = LocalTime.now().plusHours(1); // Set collection_deadline to current time + 1 hour
+        this.collection_deadline = LocalTime.now().plusHours(1); // Set collection_deadline to order creation time + 1 hour
         this.items = items; // Set items
-        this.status = DishStatus.NEW; // Set status to NEW
         this.option = option; // Set option
     }
     
@@ -41,17 +39,12 @@ public class Order {
     	return order_id;
     }
     
-    private void Refresh_Dish_Status() {
-    	System.out.println(LocalTime.now());
-    	System.out.println(collection_deadline);
-    	if (status == DishStatus.READY_TO_PICKUP && LocalTime.now().isAfter(collection_deadline)) {
-    		status = DishStatus.CANCELLED;
-        }
+    public boolean beyond_collection_deadline() {
+    	return LocalTime.now().isAfter(collection_deadline);
     }
     
- 
     public void DisplayOrder() {
-    	Refresh_Dish_Status();
+    	
     	
         double totalPrice = 0.0; // Initialize total price
         
@@ -65,7 +58,6 @@ public class Order {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = orderDateTime.format(formatter);
         System.out.printf("| %s  %-34s |\n", "Time:", formattedDateTime);
-        System.out.printf("| %s  %-32s |\n", "Status:", status);
         System.out.println("+-------------------------------------------+");
         System.out.println("| Item Name:               Quantity:        |");
         for (FoodItem item : items.keySet()) {
@@ -81,26 +73,5 @@ public class Order {
     }
 
     
-    
-
-    
-    //check if is a new order
-    public boolean IsNewOrder() {
-    	return status == DishStatus.NEW;
-    }
-    
-    // Method to process a new order
-    public void ProcessNewOrder() {
-        status = DishStatus.READY_TO_PICKUP;
-        
-        System.out.println("Order Status Successfully Updated!");
-        DisplayOrder();
-        
-    }
-
-    // Method to check status
-    public void checkStatus() {
-    	 Refresh_Dish_Status();
-         System.out.println("Status: " + status);
-    }
+   
 }

@@ -1,24 +1,26 @@
 package com.Branch;
-import java.util.ArrayList;
 
 
 public class Branch {
-	private String BranchName;
+	public final String BranchName;
 	private int StaffQuota;
 	private String Location;
-	private BranchSystem branchSystem;
+	
+	public Self_Ordering_Kiosk kiosk_machine;
+	public Order_Collection_Site collection_Site;
+	public BranchSystem branchSystem;
+	
 
-	Branch(){}
-
-	public Branch(String name, int Quota, String loc){
-		this.BranchName = name;
+	
+	public Branch(String branch_name, int Quota, String loc) {
+		this.BranchName = branch_name;
 		this.StaffQuota = Quota;
 		this.Location = loc;
+		this.kiosk_machine = new Self_Ordering_Kiosk();
+		this.collection_Site = new Order_Collection_Site();
 		this.branchSystem = new BranchSystem();
 	}
-
-
-
+	
 	public int getStaffQuota() {
         return StaffQuota;
     }
@@ -48,4 +50,6 @@ public class Branch {
 	public BranchSystem getBranchSystem() {
 		return branchSystem;
 	}
+
+	
 }
