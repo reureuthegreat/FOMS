@@ -11,11 +11,6 @@ public class StaffAccount extends Account {
         super(ID,name,age,role,gender);
         this.branch = branch;
     }
-    public void displayOrder(){}
-
-    public void viewOrder(){}
-
-    public void processOrder(){}
 
     public void setBranch(String branch){
         this.branch = branch;

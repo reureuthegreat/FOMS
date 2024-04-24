@@ -30,11 +30,9 @@ public class CustomerOrderingSystem {
 		
 		Branch branch;
 		
-		int counter = 1;
-		System.out.println("Which Burger Queen would you like to go to?");
+		System.out.println("Which KFC would you like to go to?");
 		for (Branch br : branchManagement.getBranchList()) {
-			System.out.println(counter + ":" + br.getBranchName());
-			counter++;
+			System.out.println(" - " + br.getBranchName());
 		}
 		
         do {
