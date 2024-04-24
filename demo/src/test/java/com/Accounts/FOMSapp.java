@@ -98,7 +98,7 @@ public class FOMSapp {
                     }
                     break;
                 default:
-					System.out.println("Please Enter 1,2 or 3");
+					System.out.println("Please Enter 1, 2 or 3");
 					break;
             }
         }while(choice!=3);
