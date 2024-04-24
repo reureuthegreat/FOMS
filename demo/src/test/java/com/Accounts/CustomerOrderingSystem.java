@@ -1,18 +1,20 @@
+package com.Accounts;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import Branch.Branch;
-import Branch.BranchManagement;
-import Branch.BranchSystem;
-import Branch.Self_Ordering_Kiosk;
-import Cart.IShoppingCart;
-import Cart.ShoppingCart;
-import FoodItem.FoodItem;
-import Menu.ICustomerMenu;
+import com.Branch.Branch;
+import com.Branch.BranchManagement;
+import com.Branch.BranchSystem;
+import com.Branch.Self_Ordering_Kiosk;
+import com.Cart.IShoppingCart;
+import com.Cart.ShoppingCart;
+import com.FoodItem.FoodItem;
+import com.Menu.ICustomerMenu;
 
-import Menu.MenuOperator;
-import Order.Order;
+import com.Menu.MenuOperator;
+import com.Order.Order;
 
 public class CustomerOrderingSystem {
 	
