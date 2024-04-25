@@ -1,4 +1,6 @@
 package com.Accounts;
+import com.Branch.Branch;
+
 import java.util.Scanner;
 
 public class AdminAccount extends Account{
@@ -12,18 +14,11 @@ public class AdminAccount extends Account{
 		super(ID,name,age,role,gender,password);
 	}
 
-	public boolean assignManager(StaffAccManagement staffaccmanagement, BranchManagement branchManagement) {
-		System.out.println("Please enter the Manager you want to assign: ");
-		Scanner sc=  new Scanner(System.in);
-		String ManagerID = sc.nextLine();
-		System.out.println("Please enter the name of the branch you are assigning them to: ");
-		String BranchName = sc.nextLine();
-		Account Acc = staffaccmanagement.findStaffAccount(ManagerID);
-		StaffAccount Acc1 = (StaffAccount) Acc;
+	public boolean assignManager(ManagerAccount Acc1,Branch branch) {
 		try {
 			if ((Acc1.getRole() == Role.MANAGER) && (Acc1 != null)) {
-				Acc1.setBranch(BranchName);
-				System.out.println("Manager Assigned to " + BranchName + " branch successfully.");
+				Acc1.setBranch(branch.getBranchName());
+				System.out.println("Manager Assigned to " + branch.getBranchName() + " branch successfully.");
 				return true;
 			}else {
 				System.out.println("Staff is not a Manager. Promote first.");
@@ -70,6 +65,11 @@ public class AdminAccount extends Account{
 		System.out.println("Please enter the name of the branch you are transferring them to: ");
 		String BranchName = sc.nextLine();
 		StaffAccount Acc = (StaffAccount) staffaccmanagement.findStaffAccount(StaffID);
+		Branch branch = branchManagement.getBranchByName(BranchName);
+		if(!branch.verifyBranchQuota()){
+			System.out.println("Branch is full!");
+			return false;
+		}
 		if(Acc!=null){
 			Acc.setBranch(BranchName);
 			System.out.println("Staff Assigned to " + BranchName + " branch successfully.");
@@ -78,6 +78,33 @@ public class AdminAccount extends Account{
 			System.out.println("Staff not found!");
 		}
 		return false;
+	}
+
+	public boolean VerifyManagerQuota(Branch branch){
+		int currentnumber = branch.getNumberofStaffs();
+		int managers = branch.getNumofManagers();
+
+		if(currentnumber<=4){
+			if(managers<1){
+				return true;
+			}
+			return false;
+		}
+		else if(currentnumber>=5 && currentnumber<=8){
+			if(managers<2){
+				return true;
+			}
+			return false;
+		}
+		else if(currentnumber>=9 && currentnumber<=15){
+			if(managers<3){
+				return true;
+			}
+			return false;
+		}
+		else{
+			return false;
+		}
 	}
 
 	public String getBranchName(){

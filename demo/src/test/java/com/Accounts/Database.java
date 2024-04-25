@@ -148,7 +148,9 @@ public class Database {
             String name = star.nextToken().trim(); // Branch name
             String Location = star.nextToken().trim(); // Branch Location
             int Quota = Integer.parseInt(star.nextToken().trim()); // Staff Quota
-            Branch branch = new Branch(name,Quota,Location);
+            int NumofStaffs = Integer.parseInt(star.nextToken().trim());
+            int NumofManagers = Integer.parseInt(star.nextToken().trim());
+            Branch branch = new Branch(name,Quota,Location,NumofStaffs,NumofManagers);
             alr.add(branch);
         }
         return alr;
@@ -165,6 +167,10 @@ public class Database {
             st.append(BR.getLocation().trim());
             st.append(SEPARATOR);
             st.append(BR.getStaffQuota());
+            st.append(SEPARATOR);
+            st.append(BR.getNumberofStaffs());
+            st.append(SEPARATOR);
+            st.append(BR.getNumofManagers());
             alw.add(st.toString());
         }
         write(filename, alw);
