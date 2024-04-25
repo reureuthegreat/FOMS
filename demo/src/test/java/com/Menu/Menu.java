@@ -1,9 +1,11 @@
 package com.Menu;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import com.FoodItem.FoodItem;
 import com.FoodItem.FoodItemOperator;
+import com.FoodItem.IFoodItemOperator;
 
 public class Menu{
 
@@ -26,8 +28,52 @@ public class Menu{
     }
 
     protected void updateItem(FoodItem foodItem) {
-        FoodItemOperator manager = new FoodItemOperator();
-        manager.updateInfo(foodItem);
+        
+        IFoodItemOperator foodItemOperator = new FoodItemOperator();
+
+		int choice;
+        Scanner scanner = new Scanner(System.in);
+        
+        do{
+        	System.out.println("+-----------------------------------+");
+        	System.out.println("| Updating MenuItems.....           |");
+        	System.out.println("+-----------------------------------+");
+        	System.out.println("| 1. Update Price                   |");
+        	System.out.println("| 2. Update Description             |");
+        	System.out.println("| 3. Update Category                |");
+        	System.out.println("| 4. Update Availability            |");
+        	System.out.println("| Enter other numbers to quit.      |");
+        	System.out.println("+-----------------------------------+");
+        	System.out.println("");
+        	System.out.println("Enter Choice:");
+
+        	choice = scanner.nextInt();
+            
+        	System.out.println("");
+        	switch (choice) {
+				case 1: {
+					foodItemOperator.modifyPrice(foodItem);
+					foodItem.display();
+					break;
+				}
+				case 2: {
+					foodItemOperator.modifyDescription(foodItem);
+					foodItem.display();
+					break;
+				}
+				case 3: {
+					foodItemOperator.modifyCategory(foodItem);
+					foodItem.display();
+					break;
+				}
+				case 4:{
+					foodItemOperator.modifyAvailability(foodItem);
+					foodItem.display();
+					break;
+				}
+        	}
+        }while(choice <=4 && choice >=1);
+
         Refresh_CustomerMenu();
     }
 

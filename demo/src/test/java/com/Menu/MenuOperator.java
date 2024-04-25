@@ -8,7 +8,7 @@ import com.FoodItem.FoodItemOperator;
 
 public class MenuOperator implements ICustomerMenu,IManagerMenu{
 	
-
+	@Override
     public void Display_Manager_Menu(Menu menu) {
     	System.out.println("");
     	System.out.println("");
@@ -28,6 +28,7 @@ public class MenuOperator implements ICustomerMenu,IManagerMenu{
 		}
 	}
     
+	@Override
     public void Display_Customer_Menu(ArrayList<FoodItem> customer_menu) {
     	System.out.println("");
     	System.out.println("");
@@ -45,7 +46,6 @@ public class MenuOperator implements ICustomerMenu,IManagerMenu{
 		
 	}
     
-    
 	//check for duplicated/existing names in the menu
 	private boolean check_duplicates(String name,ArrayList<FoodItem> menu) {
 		for (FoodItem foodItem:menu) {
@@ -54,7 +54,8 @@ public class MenuOperator implements ICustomerMenu,IManagerMenu{
 			}
 		return true;
 	}
-		
+	
+	@Override
 	public void Add_FoodItems(Menu menu) {
 		FoodItem foodItem = FoodItemOperator.createFoodItem();
 		//check if name already exists
@@ -66,6 +67,7 @@ public class MenuOperator implements ICustomerMenu,IManagerMenu{
 		}
 	}	
 	
+	@Override
 	public void Remove_FoodItems(Menu menu) {
 		
 		Scanner scanner = new Scanner(System.in);
@@ -79,6 +81,7 @@ public class MenuOperator implements ICustomerMenu,IManagerMenu{
 		}
 		
 		Display_Manager_Menu(menu);
+
 		do {
 			System.out.println("Enter the Index of removing item:" + "1 ~ " + menu_items.size());
             index = scanner.nextInt();
@@ -92,7 +95,7 @@ public class MenuOperator implements ICustomerMenu,IManagerMenu{
 			
 	}
 	
-	
+	@Override
 	public void Update_FoodItems(Menu menu) {
 		Scanner scanner = new Scanner(System.in);
 		int index;
