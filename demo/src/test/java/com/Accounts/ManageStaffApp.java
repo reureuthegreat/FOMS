@@ -1,4 +1,6 @@
 package com.Accounts;
+import com.Branch.Branch;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -19,7 +21,7 @@ public class ManageStaffApp {
      *
      * @param staffAccManagement The StaffAccManagement object for managing staff accounts.
      */
-    public void managestaffapp(StaffAccManagement staffAccManagement){
+    public void managestaffapp(StaffAccManagement staffAccManagement,BranchManagement branchManagement){
         boolean isValidInput = false;
         do {
             try {
@@ -34,7 +36,7 @@ public class ManageStaffApp {
                 isValidInput = true;
                 switch (choice) {
                     case 1:
-                        if(staffAccManagement.addAcc()){
+                        if(staffAccManagement.addAcc(branchManagement)){
                             System.out.println("New Staff Account created.");
                         }else{
                             System.out.println("Failed to create Account. Try again.");
@@ -42,7 +44,7 @@ public class ManageStaffApp {
                         break;
                     case 2:
                         sc.nextLine();
-                        if(staffAccManagement.removeAcc()){
+                        if(staffAccManagement.removeAcc(branchManagement)){
                             System.out.println("Staff Account deleted successfully.");
                         }
                         else{

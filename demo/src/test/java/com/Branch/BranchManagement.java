@@ -73,7 +73,6 @@ public class BranchManagement {
 				return branch;
 			}
 		}
-		System.out.println("Branch does not exist!");
 		return null;
 	}
 

@@ -43,6 +43,7 @@ public class AdminAccount extends Account{
 		try {
 			if ((Acc1.getRole() == Role.MANAGER) && (Acc1 != null)) {
 				Acc1.setBranch(branch.getBranchName());
+				branch.incrementManagerNum();
 				System.out.println("Manager Assigned to " + branch.getBranchName() + " branch successfully.");
 				return true;
 			}else {
@@ -74,7 +75,6 @@ public class AdminAccount extends Account{
 		}catch(NullPointerException e){
 			System.out.println("Account doesn't exist! Did you input the ID correctly?");
 		}
-		return;
 	}
 
 	/**
@@ -83,26 +83,33 @@ public class AdminAccount extends Account{
 	 * @param branchManagement The BranchManagement object for managing Branches.
 	 * @return true if Staff is transferred successfully, false otherwise.
 	 */
-	public boolean transferStaff(StaffAccManagement staffaccmanagement, BranchManagement branchManagement) {
+	public boolean transferStaff(StaffAccManagement staffaccmanagement, BranchManagement branchManagement) throws NullPointerException {
 		System.out.println("Please enter the Staff ID you want to transfer: ");
 		Scanner sc=  new Scanner(System.in);
 		String StaffID = sc.nextLine();
 		System.out.println("Please enter the name of the branch you are transferring them to: ");
 		String BranchName = sc.nextLine();
-		Branch branch = branchManagement.getBranchByName(BranchName);
-		if(!branch.verifyBranchQuota()){
-			System.out.println("Branch is full!");
-			return false;
+        Branch branch = branchManagement.getBranchByName(BranchName);
+		try {
+			if (!branch.verifyBranchQuota()) {
+				System.out.println("Branch is full!");
+				return false;
+			}
+			StaffAccount Acc = (StaffAccount) staffaccmanagement.findStaffAccount(StaffID);
+			if (Acc != null) {
+				String oldBranch = Acc.getBranchName();
+				Acc.setBranch(BranchName);
+				branch.incrementStaffNum();
+				branch = branchManagement.getBranchByName(oldBranch);
+				branch.decrementStaffNum();
+				System.out.println("Staff Assigned to " + BranchName + " branch successfully.");
+			} else {
+				System.out.println("Staff not found!");
+			}
+		}catch(NullPointerException e){
+			System.out.println("Branch does not exist!");
 		}
-		StaffAccount Acc = (StaffAccount) staffaccmanagement.findStaffAccount(StaffID);
-		if(Acc!=null){
-			Acc.setBranch(BranchName);
-			System.out.println("Staff Assigned to " + BranchName + " branch successfully.");
-		}
-		else{
-			System.out.println("Staff not found!");
-		}
-		return false;
+        return false;
 	}
 
 	/**
