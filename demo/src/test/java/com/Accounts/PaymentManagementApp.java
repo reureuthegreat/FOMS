@@ -11,7 +11,7 @@ public class PaymentManagementApp {
     int choice;
     Scanner sc = new Scanner(System.in);
     public void paymentmanagementapp(){
-        PaymentManagement PM = new PaymentManagement();
+        PaymentManagement PM = PaymentManagement.getInstance();
         try {
             System.out.println("==========Manage Payment===========\n" +
                        "1. Add Payment Method\n" +
