@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import com.FoodItem.FoodItem;
 import com.FoodItem.FoodItemOperator;
+import com.FoodItem.IFoodItemOperator;
 
 public class MenuOperator implements ICustomerMenu,IManagerMenu{
 
@@ -57,7 +58,8 @@ public class MenuOperator implements ICustomerMenu,IManagerMenu{
 
 	@Override
 	public void Add_FoodItems(Menu menu) {
-		FoodItem foodItem = FoodItemOperator.createFoodItem();
+		IFoodItemOperator foodItemOperator = new FoodItemOperator();
+		FoodItem foodItem = foodItemOperator.createFoodItem();
 		//check if name already exists
 		if (check_duplicates(foodItem.getName(),menu.getMenu())) {
 			menu.addItem(foodItem);
