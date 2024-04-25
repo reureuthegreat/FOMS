@@ -47,15 +47,17 @@ public class PaymentManagement {
         throw new Exception("Payment method with name " + name + " not found");
     }
 
-    public void displayPaymentMethods() {
+    public int displayPaymentMethods() {
         if (paymentMethods.isEmpty()) {
             System.out.println("No payment methods added.");
-            return;
+            return 0;
         }
         System.out.println("List of Payment Methods:");
         int counter = 1; // Counter variable to iterate numbers
         for (iPaymentMethod paymentMethod : paymentMethods) {
             System.out.printf("%d. %s\n", counter++, paymentMethod.getName()); // Display payment methods with numbers
         }
+        System.out.printf("%d. Quit",counter);
+        return counter;
     }
 }
