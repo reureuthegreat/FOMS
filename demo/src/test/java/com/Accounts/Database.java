@@ -28,20 +28,20 @@ public class Database {
         ArrayList<Account> alr = new ArrayList();// to store Professors data
 
         for (int i = 0; i < stringArray.size(); i++) {
-            String st = (String) stringArray.get(i);
+            String st = (String)stringArray.get(i);
             // get individual 'fields' of the string separated by SEPARATOR
             StringTokenizer star = new StringTokenizer(st, SEPARATOR);    // pass in the string to the string tokenizer using delimiter ","
-
             String name = star.nextToken().trim(); // name
             String ID = star.nextToken().trim(); // ID
             String RoleString = star.nextToken().trim(); // Role in string
             String GenderString = star.nextToken().trim(); // Gender in string
             int Age = Integer.parseInt(star.nextToken().trim()); // Age in int
             String Branch = star.nextToken().trim();// Branch as a string
+            String password = star.nextToken().trim();//Password as string
             Role role;
             if (RoleString.compareTo("STAFF") == 0) {
                 role = Role.STAFF;
-                StaffAccount Acc = new StaffAccount(ID, name, Age, GenderString, role, Branch);
+                StaffAccount Acc = new StaffAccount(ID, name, Age, GenderString, role, Branch,password);
                 int index =0;
                 for(Account acc:alr){
                     if(Acc.getAge()>acc.getAge()){
@@ -52,7 +52,7 @@ public class Database {
                 alr.add(index,Acc);
             } else if (RoleString.compareTo("MANAGER") == 0) {
                 role = Role.MANAGER;
-                ManagerAccount Acc = new ManagerAccount(ID, name, Age, GenderString, role, Branch);
+                ManagerAccount Acc = new ManagerAccount(ID, name, Age, GenderString, role, Branch,password);
                 int index =0;
                 for(Account acc:alr){
                     if(Acc.getAge()>acc.getAge()){
@@ -63,7 +63,7 @@ public class Database {
                 alr.add(index,Acc);
             } else if (RoleString.compareTo("ADMIN") == 0) {
                 role = Role.ADMIN;
-                AdminAccount Acc = new AdminAccount(ID, name, Age, role, GenderString);
+                AdminAccount Acc = new AdminAccount(ID, name, Age, role, GenderString,password);
                 int index =0;
                 for(Account acc:alr){
                     if(Acc.getAge()>acc.getAge()){
@@ -97,6 +97,8 @@ public class Database {
             st.append(Acc.getAge());
             st.append(SEPARATOR);
             st.append(Acc.getBranchName().trim());
+            st.append(SEPARATOR);
+            st.append(Acc.getPassword().trim());
             alw.add(st.toString());
         }
         write(filename, alw);

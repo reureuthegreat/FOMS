@@ -29,6 +29,7 @@ public class ManageStaffApp {
                         }
                         break;
                     case 2:
+                        sc.nextLine();
                         if(staffAccManagement.removeAcc()){
                             System.out.println("Staff Account deleted successfully.");
                         }

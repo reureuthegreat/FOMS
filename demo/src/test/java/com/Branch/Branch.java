@@ -51,5 +51,4 @@ public class Branch {
 		return branchSystem;
 	}
 
-	
 }

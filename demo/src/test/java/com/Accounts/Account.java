@@ -21,6 +21,14 @@ public abstract class Account {
         this.role = role;
         this.Password = "password";
     }
+    public Account(String ID, String name, int age,Role role, String gender,String password) {
+        this.Name = name;
+        this.age = age;
+        this.gender = gender;
+        this.ID = ID;
+        this.role = role;
+        this.Password = password;
+    }
 
     public String getID() {
         return this.ID;
