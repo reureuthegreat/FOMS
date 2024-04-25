@@ -11,6 +11,10 @@ public class StaffAccount extends Account {
         super(ID,name,age,role,gender);
         this.branch = branch;
     }
+    StaffAccount(String ID, String name, int age, String gender,Role role, String branch, String password){
+        super(ID,name,age,role,gender,password);
+        this.branch = branch;
+    }
 
     public void setBranch(String branch){
         this.branch = branch;

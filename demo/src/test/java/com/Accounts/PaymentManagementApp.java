@@ -23,12 +23,14 @@ public class PaymentManagementApp {
             sc.nextLine();
             switch(choice){
                 case 1:
+                    sc.nextLine();
                     System.out.println("Enter the Payment Method Name:");
                     String name = sc.nextLine();
                     String Cardnumber = "None";
                     PM.addPaymentMethod(name,Cardnumber);
                     break;
                 case 2:
+                    sc.nextLine();
                     System.out.println("Enter the name of the payment method you would like to remove:");
                     name = sc.nextLine();
                     PM.removePaymentMethod(name);

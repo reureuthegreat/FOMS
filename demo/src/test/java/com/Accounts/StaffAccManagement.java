@@ -111,26 +111,32 @@ public class StaffAccManagement {
 
 	public void editAcc() {
 		Scanner sc = new Scanner(System.in);
+		boolean exit = false;
 		String oldStaffID, newStaffID, newPassword, newbranch;
+		do{
 		System.out.println("Please select what you would like to do:");
 		System.out.println("1: Change Staff ID");
 		System.out.println("2: Change password");
-		System.out.println("3: Change Branch");
-		System.out.println("4: Quit");
+		System.out.println("3: Quit");
 		int choice = sc.nextInt();
-		do{
+		sc.nextLine();
 		switch(choice){
 			case 1:
 				System.out.println("Please input the staff ID you would like to change:");
 				oldStaffID = sc.nextLine();
 				System.out.println("Please input the new staff ID:");
 				newStaffID = sc.nextLine();
+				boolean change = false;
 				for(Account account : AccList){
-					if(account.getID().equals(oldStaffID)){
+					if(account.getID().equals(oldStaffID)) {
 						account.setID(newStaffID);
 						System.out.println("Successfully changed Staff ID.");
+						change = true;
 						break;
 					}
+				}
+				if(change ==false){
+					System.out.println("ID does not exist! Try again.");
 				}
 				break;
 			case 2:
@@ -147,25 +153,15 @@ public class StaffAccManagement {
 				}
 				break;
 			case 3:
-				System.out.println("Please inpute the staff ID you would like to transfer:");
-				oldStaffID = sc.nextLine();
-				System.out.println("Please input the new branch:");
-				newbranch = sc.nextLine();
-				for(Account account: AccList){
-					if(account.getID().equals(oldStaffID)){
-						StaffAccount account1 = (StaffAccount) account;
-						account1.setBranch(newbranch);
-					}
-				}
-				break;
-			case 4:
 				System.out.println("Quitting...");
+				exit = true;
 				break;	
 			default:
 				System.out.println("Invalid choice. Input Choice again:");
 				choice = sc.nextInt();
-		}
-		}while(choice!=4);
+				break;
+			}
+		}while(!exit);
 	}
 
 	public boolean removeAcc() {

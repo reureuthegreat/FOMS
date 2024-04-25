@@ -47,9 +47,11 @@ public class StaffApp {
                             BS.Process_Order();
                             break;
                         case 3:
+                            sc.nextLine();
                             System.out.println("Enter new password:");
                             String password = sc.nextLine();
                             staff.setPassword(password);
+                            System.out.println("Password changed successfully");
                             break;
                         case 4:
                             break;
