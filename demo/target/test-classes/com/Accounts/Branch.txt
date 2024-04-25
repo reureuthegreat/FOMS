@@ -1,5 +1,4 @@
-JEM|Jurong East Mall|10
-NTU|North Spine Plaza|8
-JP|Jurong Point|15
-JE|Jurong East|11
-NUS|NUS|5
+NTU|North Spine Plaza|8|2|1
+JP|Jurong Point|15|0|0
+JE|Jurong East|3|2|1
+NUS|NUS|7|0|0

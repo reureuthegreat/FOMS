@@ -1,13 +1,27 @@
 package com.Accounts;
-
-
+import com.Branch.Branch;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Represents an interface for Admin functionalities in the system.
+ * Handles operations such as managing staff, assigning managers, promoting staff, etc.
+ */
 public class AdminApp {
+
+    /**
+     * Constructs an AdminApp object.
+     */
     public AdminApp(){}
     Scanner sc = new Scanner(System.in);
     int choice;
+
+    /**
+     * Executes the Admin application with various functionalities.
+     * @param Admin The AdminAccount object representing the logged-in Admin.
+     * @param staffAccManagement The StaffAccManagement object for managing Staff accounts.
+     * @param branchManagement The BranchManagement object for managing Branches.
+     */
     public void adminapp(AdminAccount Admin, StaffAccManagement staffAccManagement, BranchManagement branchManagement){
             do {
                 System.out.println("==========Admin===========\n" +
@@ -34,7 +48,18 @@ public class AdminApp {
                         break;
                     case 3:
                         sc.nextLine();
-                        Admin.assignManager(staffAccManagement, branchManagement);//calls the Admin Account method
+                        System.out.println("Please enter the Manager you want to assign: ");
+                        String ManagerID = sc.nextLine();
+                        System.out.println("Please enter the name of the branch you are assigning them to: ");
+                        String BranchName = sc.nextLine();
+                        Branch branch = branchManagement.getBranchByName(BranchName);
+                        if(!Admin.VerifyManagerQuota(branch)){
+                            System.out.println("Manager Quota reached!");
+                            break;
+                        }
+                        Account Acc = staffAccManagement.findStaffAccount(ManagerID);
+                        StaffAccount Acc1 = (StaffAccount) Acc;
+                        Admin.assignManager(Acc1,branch);//calls the Admin Account method
                         break;
                     case 4:
                         sc.nextLine();

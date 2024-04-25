@@ -1,19 +1,27 @@
 package com.Accounts;
 import com.Branch.Branch;
-
-
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Manages branches in the system, including adding, removing, and retrieving branches.
+ */
 public class BranchManagement {
 	int Quota;
 	static ArrayList<Branch> BranchList;
 
+	/**
+	 * Constructs a BranchManagement object and initializes the BranchList.
+	 */
 	BranchManagement(){
 		BranchList = new ArrayList<>();
 	}
 
+	/**
+	 * Adds a new branch to the system.
+	 * @return True if the branch is successfully added, false otherwise.
+	 */
 	public boolean AddBranch() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Please Enter Branch Name: ");
@@ -48,6 +56,10 @@ public class BranchManagement {
 		return true;
 	}
 
+	/**
+	 * Removes a branch from the system.
+	 * @return True if the branch is successfully removed, false otherwise.
+	 */
 	public boolean RemoveBranch() {
 		System.out.println("Please enter the name of the Branch you would like to remove: ");
 		Scanner sc = new Scanner(System.in);
@@ -63,13 +75,22 @@ public class BranchManagement {
 		return false;
 	}
 
+	/**
+	 * Retrieves the list of branches.
+	 * @return The list of branches.
+	 */
 	public static ArrayList<Branch> getBranchList() {
 		return BranchList;
 	}
 
-	public Branch getBranchByName(String BranchName){
-		for(Branch branch: BranchList){
-			if(branch.verifyBranchName(BranchName)){
+	/**
+	 * Retrieves a branch by its name.
+	 * @param BranchName The name of the branch to retrieve.
+	 * @return The Branch object if found, null otherwise.
+	 */
+	public Branch getBranchByName(String BranchName){ // pass string branch name
+		for(Branch branch: BranchList){//iterate thru list of branches to find the branch object.
+			if(branch.verifyBranchName(BranchName)){ // verify branch name.
 				return branch;
 			}
 		}
@@ -77,6 +98,10 @@ public class BranchManagement {
 		return null;
 	}
 
+	/**
+	 * Sets the list of branches.
+	 * @param branchList The list of branches to set.
+	 */
 	public static void setBranchList(ArrayList<Branch> branchList) {
 		BranchList = branchList;
 	}

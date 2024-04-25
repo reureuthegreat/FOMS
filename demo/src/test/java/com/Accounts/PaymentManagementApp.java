@@ -6,34 +6,36 @@ import java.util.Scanner;
 import com.PaymentManagement.PaymentManagement;
 
 public class PaymentManagementApp {
-    
+
     public PaymentManagementApp(){}
     int choice;
     Scanner sc = new Scanner(System.in);
     public void paymentmanagementapp(){
-        PaymentManagement PM = new PaymentManagement();
+        PaymentManagement PM = PaymentManagement.getInstance();
         try {
             System.out.println("==========Manage Payment===========\n" +
-                       "1. Add Payment Method\n" +
-                       "2. Remove Payment Method\n" +
-                       "3. Back\n" +
-                       "==========================\n");
+                    "1. Add Payment Method\n" +
+                    "2. Remove Payment Method\n" +
+                    "3. Back\n" +
+                    "==========================\n");
 
             choice = sc.nextInt();
-            sc.nextLine();
             switch(choice){
                 case 1:
                     sc.nextLine();
                     System.out.println("Enter the Payment Method Name:");
                     String name = sc.nextLine();
-                    String Cardnumber = "None";
-                    PM.addPaymentMethod(name,Cardnumber);
+                    PM.addPaymentMethod(name);
                     break;
                 case 2:
                     sc.nextLine();
                     System.out.println("Enter the name of the payment method you would like to remove:");
                     name = sc.nextLine();
-                    PM.removePaymentMethod(name);
+                    try{
+                        PM.removePaymentMethod(name);
+                    }catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case 3:
                     // Back

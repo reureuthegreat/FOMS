@@ -1,7 +1,6 @@
 package com.Branch;
 
-import com.PaymentManagement.CreditCardPayment;
-import com.PaymentManagement.PayPalPayment;
+import com.PaymentManagement.*;
 
 import java.sql.SQLOutput;
 import java.util.InputMismatchException;
@@ -11,14 +10,12 @@ public class PaymentApp {
     public PaymentApp(){}
     int choice;
     Scanner sc= new Scanner(System.in);
+    PaymentManagement PM = PaymentManagement.getInstance();
     public void paymentapp(double amount){
         do {
-            System.out.println(
-                    "=================Choose your Payment Type=================\n" +
-                            "1. Credit Card\n" +
-                            "2. Paypal\n" +
-                            "3. Cancel Payment\n"+
-                            "======================================================================\n");
+            System.out.println("=================Choose your Payment Type=================");
+            PM.displayPaymentMethods();
+            System.out.println("======================================================================\n");
             System.out.println("Please enter number of your selection: ");
             try {
                 choice = sc.nextInt();
@@ -54,6 +51,6 @@ public class PaymentApp {
                 System.out.println("Numbers only");
                 sc.nextLine();
             }
-            }while(choice!=3);
-        }
+        }while(choice!=3);
+    }
 }

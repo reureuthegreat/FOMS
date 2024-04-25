@@ -1,40 +1,61 @@
 package com.PaymentManagement;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class PaymentManagement {
+    private static PaymentManagement instance = null;
     private ArrayList<iPaymentMethod> paymentMethods;
     private PaymentMethodFactory paymentMethodFactory;
 
-    public PaymentManagement() {
+    private PaymentManagement() {
         this.paymentMethods = new ArrayList<>();
         this.paymentMethodFactory = new PaymentMethodFactory();
+
+        CreditCardPayment initialCreditCardPayment = new CreditCardPayment("4111111111111111", "12/25", "123");
+        PayPalPayment initialPayPalPayment = new PayPalPayment("example@email.com", "password");
+
+        paymentMethods.add(initialCreditCardPayment);
+        paymentMethods.add(initialPayPalPayment);
+    }
+
+    public static PaymentManagement getInstance() {
+        if (instance == null) {
+            instance = new PaymentManagement();
+        }
+        return instance;
     }
 
     public void addPaymentMethod(String className, Object... params) {
-        iPaymentMethod paymentMethod = (iPaymentMethod)paymentMethodFactory.createPaymentMethod(className, params);
+        iPaymentMethod paymentMethod = (iPaymentMethod) paymentMethodFactory.createPaymentMethod(className, params);
         if (paymentMethod != null) {
-            paymentMethods.add(paymentMethod);
+            this.paymentMethods.add(paymentMethod);
         } else {
             System.out.println("Failed to create payment method");
         }
     }
 
-    public void removePaymentMethod(String name) {
+    public void removePaymentMethod(String name) throws Exception {
         Iterator<iPaymentMethod> iterator = paymentMethods.iterator();
         while (iterator.hasNext()) {
             iPaymentMethod paymentMethod = iterator.next();
             if (paymentMethod.getName().equals(name)) {
                 iterator.remove();
-                break; // Exit the loop after removing the first matching payment method
+                return; // Exit the method after removing the first matching payment method
             }
         }
+        throw new Exception("Payment method with name " + name + " not found");
     }
-    
 
     public void displayPaymentMethods() {
+        if (paymentMethods.isEmpty()) {
+            System.out.println("No payment methods added.");
+            return;
+        }
+        System.out.println("List of Payment Methods:");
+        int counter = 1; // Counter variable to iterate numbers
         for (iPaymentMethod paymentMethod : paymentMethods) {
-            System.out.printf("%s ", paymentMethod.getName());
+            System.out.printf("%d. %s\n", counter++, paymentMethod.getName()); // Display payment methods with numbers
         }
     }
 }

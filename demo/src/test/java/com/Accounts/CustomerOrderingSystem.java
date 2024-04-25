@@ -1,31 +1,26 @@
 package com.Accounts;
-
 import java.util.*;
-
 import com.Branch.Branch;
 import com.Branch.BranchSystem;
-import com.Branch.Self_Ordering_Kiosk;
-import com.Cart.IShoppingCart;
-import com.Cart.ShoppingCart;
-import com.FoodItem.FoodItem;
-import com.Menu.ICustomerMenu;
-
-import com.Menu.MenuOperator;
-import com.Order.Order;
 import java.util.Scanner;
+
+/**
+ * Manages customer ordering at a specific branch of Kentucky Fried Children (KFC).
+ */
 public class CustomerOrderingSystem {
-	
-	
+
+	/**
+	 * Manages customer ordering at a specific branch of Kentucky Fried Children (KFC).
+	 * @param branchManagement The BranchManagement object containing the list of branches.
+	 */
 	public void COS(BranchManagement branchManagement) {
 		Scanner scanner = new Scanner(System.in);
 		int choice;
 		Branch branch;
 
-		int counter = 1;
 		System.out.println("Which KFC would you like to go to?");
 		for (Branch br : branchManagement.getBranchList()) {
-			System.out.println(counter + ":" + br.getBranchName());
-			counter++;
+			System.out.println(br.getBranchName());
 		}
 		
         do {
@@ -36,15 +31,13 @@ public class CustomerOrderingSystem {
                 name = scanner.nextLine();
             }
         }while(branch==null);
-		
-        
+
         /*
          *  Setting
          */
 
         //1. Connect to branchSystem
         BranchSystem branchSystem = branch.branchSystem;
-        /*TEMP - TESTING ONLYbranchSystem.Branch_Menu_Management();*/
 
 			try {
 				Boolean IsValid = true;
@@ -98,14 +91,8 @@ public class CustomerOrderingSystem {
 				System.out.println("numbers only");
 				scanner.nextLine();
 		}
-		/*
 		
-		
-		//Staff 
-		branchSystem.Display_Order();
-		branchSystem.Process_Order();
-		branchSystem.View_New_Order();
-		*/
+
 	}
 	
 }

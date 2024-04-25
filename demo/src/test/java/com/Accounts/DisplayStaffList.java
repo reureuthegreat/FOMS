@@ -1,18 +1,28 @@
 package com.Accounts;
-
-
 import com.Branch.Branch;
-
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Class that handles the display of staff lists based on different filters.
+ * It provides methods to display staff based on branch, gender, role, and age filters.
+ */
 public class DisplayStaffList {
+
+	/**
+	 * Default constructor for DisplayStaffList. To connect to the previous User Interface.
+	 */
     public DisplayStaffList(){}
     int choice;
 	int index;
     Scanner sc = new Scanner(System.in);
-    
+
+	/**
+	 * Displays the staff list based on the selected filter. The Display Staff List Method an Admin uses.
+	 * @param staffAccManagement The StaffAccManagement instance to retrieve staff data.
+	 * @param branchManagement The BranchManagement instance to retrieve branch data.
+	 */
     public void displaystafflist(StaffAccManagement staffAccManagement,BranchManagement branchManagement){ //TODO
 		boolean isValidInput = false;
 		do {
@@ -44,7 +54,7 @@ public class DisplayStaffList {
 											index++;
 										}
 									} else if (acc.getRole() == Role.MANAGER) {
-										ManagerAccount Accs = (ManagerAccount) acc;
+										StaffAccount Accs = (StaffAccount) acc;
 										if (Accs.getBranchName().compareTo(CurrentBranch) == 0) {
 											System.out.println(index + ".	Staff Name: " + Accs.getName());
 											System.out.println("	Staff Type: MANAGER");
@@ -146,6 +156,11 @@ public class DisplayStaffList {
 		}while(!isValidInput);
     }
 
+	/**
+	 * Displays the staff list for a specific branch. The Display Staff List Method a Manager uses.
+	 * @param branch The branch for which to display the staff list.
+	 * @param staffAccManagement The StaffAccManagement instance to retrieve staff data.
+	 */
     public void displaystafflist(Branch branch,StaffAccManagement staffAccManagement){
 		System.out.println("Branch: " + branch.getBranchName());
 		ArrayList<Account> AccList= staffAccManagement.getStaffAccounts();
@@ -159,12 +174,11 @@ public class DisplayStaffList {
 						System.out.println("	Staff Type: STAFF");
 						break;
 					case MANAGER:
-						System.out.println("	Staff Type: Manager");
+						System.out.println("	Staff Type: MANAGER");
 						break;
 				}
 				index++;
 			}
 		}
-
     }
 }

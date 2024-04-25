@@ -1,16 +1,30 @@
 package com.Accounts;
 import com.Branch.Branch;
 import com.Branch.BranchSystem;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Represents the application interface for a manager in the system.
+ * Allows managers to perform various tasks related to managing a branch.
+ */
 public class ManagerApp {
-    
+
+    /**
+     * Constructs a ManagerApp object.
+     */
     public ManagerApp(){}
     Scanner sc = new Scanner(System.in);
     int choice;
-    public void managerapp(ManagerAccount Manager,BranchManagement branchManagement, StaffAccManagement staffAccManagement){
+
+    /**
+     * Displays the manager application menu and allows managers to perform tasks.
+     *
+     * @param Manager            The manager account logged in.
+     * @param branchManagement   The branch management system.
+     * @param staffAccManagement The staff account management system.
+     */
+    public void managerapp(StaffAccount Manager,BranchManagement branchManagement, StaffAccManagement staffAccManagement){
             Branch branch = branchManagement.getBranchByName(Manager.getBranchName());
             BranchSystem BS = branch.getBranchSystem();
         try {
@@ -40,6 +54,7 @@ public class ManagerApp {
                         DSL.displaystafflist(branch, staffAccManagement);
                         break;
                     case 5:
+                        sc.nextLine();
                         System.out.println("Enter new password:");
                         String password = sc.nextLine();
                         Manager.setPassword(password);
