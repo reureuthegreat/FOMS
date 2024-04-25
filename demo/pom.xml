@@ -19,6 +19,13 @@
   </properties>
 
   <dependencies>
+
+    <dependency>
+      <groupId>net.bytebuddy</groupId>
+      <artifactId>byte-buddy</artifactId>
+      <version>1.11.11</version> <!-- Use the latest version -->
+    </dependency>
+    
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
