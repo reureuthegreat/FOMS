@@ -30,15 +30,100 @@ public class BranchSystem{
 	}
 
 	/*
-	 *  Menu Related
+	 *  Functions for self_ordering_kiosk
 	 */
 
-	//For Customer Only
-	public ArrayList<FoodItem> Get_Customer_Menu() {
+	//1. Provide the customer menu for self ordering kiosk
+	protected ArrayList<FoodItem> Get_Customer_Menu() {
 		return menu.getCustomerMenu();
 	}
 
-	//For Manager Only
+	//2. Add order to branch system 
+	public void addOrder(Order order) {
+		new_order_list.add(order);
+	}
+
+
+	/*
+	 *  Functions for Order_Collection_Site
+	 */
+
+	// 1. Collect order items 
+	public void collectOrder(int orderId) {
+		for (Order order : ready_to_pickup_order_list) {
+			if (order.get_order_id() == orderId) {
+				ready_to_pickup_order_list.remove(order);
+				completed_order_list.add(order);
+				System.out.println("Order #" + orderId + " collected successfully.");
+				return;
+			}
+		}
+		System.out.println("Order #" + orderId + " is not ready for collection.");
+	}
+
+	// 2. Before displaying the order, have to update the status of uncollected orders -> cancelled
+	public void checkUncollectedOrders() {
+		Iterator<Order> iterator = ready_to_pickup_order_list.iterator();
+		while (iterator.hasNext()) {
+			Order order = iterator.next();
+			if (order.beyond_collection_deadline()) {
+				iterator.remove(); // Remove from ready_to_pickup_order_list
+				cancelled_order_list.add(order); // Add to cancelled_order_list
+				System.out.println("Order ID " + order.get_order_id() + " has been cancelled due to non-collection.");
+			}
+		}
+	}
+
+
+	/*
+	 *  Staff's action
+	 */
+	
+	 public void View_New_Order() {
+		System.out.println("New Orders:");
+		for (Order order : new_order_list) {
+			order.DisplayOrder();
+		}
+	}
+
+	public void Process_Order() {
+		View_New_Order(); // Display new orders before processing
+
+		// Process new orders
+		Scanner scanner = new Scanner(System.in);
+		int orderNumber;
+		boolean validInput;
+		do {
+			System.out.print("Enter the order number to process (0 to cancel): ");
+			orderNumber = scanner.nextInt();
+
+			if (orderNumber == 0) {
+				System.out.println("Order processing cancelled.");
+				return;
+			}
+
+			validInput = false;
+			for (Order order : new_order_list) {
+				if (order.get_order_id() == orderNumber) {
+					// Change order status to "Ready to Pick up"
+					ready_to_pickup_order_list.add(order);
+					new_order_list.remove(order);
+					validInput = true;
+					System.out.println("Order processed successfully.");
+					break;
+				}
+			}
+
+			if (!validInput) {
+				System.out.println("Invalid order number or order already processed. Please try again.");
+			}
+		} while (!validInput);
+	}
+
+	/*
+	 * For Manager
+	 */
+
 	public void Branch_Menu_Management() {
 		IManagerMenu menu_operator = new MenuOperator();
 		int choice;
@@ -90,85 +175,9 @@ public class BranchSystem{
 		}while(choice <=4 && choice >=1);
 	}
 
-
 	/*
-	 *  Order Related
+	 * Utility function
 	 */
-
-	//customer perspective
-
-	public void addOrder(Order order) {
-		new_order_list.add(order);
-	}
-
-	public void collectOrder(int orderId) {
-		for (Order order : ready_to_pickup_order_list) {
-			if (order.get_order_id() == orderId) {
-				ready_to_pickup_order_list.remove(order);
-				completed_order_list.add(order);
-				System.out.println("Order #" + orderId + " collected successfully.");
-				return;
-			}
-		}
-		System.out.println("Order #" + orderId + " is not ready for collection.");
-	}
-
-
-	//staff's perspective
-
-	public void View_New_Order() {
-		System.out.println("New Orders:");
-		for (Order order : new_order_list) {
-			order.DisplayOrder();
-		}
-	}
-
-	public void Process_Order() {
-		View_New_Order(); // Display new orders before processing
-
-		// Process new orders
-		Scanner scanner = new Scanner(System.in);
-		int orderNumber;
-		boolean validInput;
-		do {
-			System.out.print("Enter the order number to process (0 to cancel): ");
-			orderNumber = scanner.nextInt();
-
-			if (orderNumber == 0) {
-				System.out.println("Order processing cancelled.");
-				return;
-			}
-
-			validInput = false;
-			for (Order order : new_order_list) {
-				if (order.get_order_id() == orderNumber) {
-					// Change order status to "Ready to Pick up"
-					ready_to_pickup_order_list.add(order);
-					new_order_list.remove(order);
-					validInput = true;
-					System.out.println("Order processed successfully.");
-					break;
-				}
-			}
-
-			if (!validInput) {
-				System.out.println("Invalid order number or order already processed. Please try again.");
-			}
-		} while (!validInput);
-	}
-
-
-	public void checkUncollectedOrders() {
-		Iterator<Order> iterator = ready_to_pickup_order_list.iterator();
-		while (iterator.hasNext()) {
-			Order order = iterator.next();
-			if (order.beyond_collection_deadline()) {
-				iterator.remove(); // Remove from ready_to_pickup_order_list
-				cancelled_order_list.add(order); // Add to cancelled_order_list
-				System.out.println("Order ID " + order.get_order_id() + " has been cancelled due to non-collection.");
-			}
-		}
-	}
 
 	public Menu getMenu() {
 		return menu;
