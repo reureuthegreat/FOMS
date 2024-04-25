@@ -53,11 +53,11 @@ public class PaymentManagement {
             return 0;
         }
         System.out.println("List of Payment Methods:");
-        int counter = 1; // Counter variable to iterate numbers
+        int numOfPaymentMethods = 0; // Counter variable to iterate numbers
         for (iPaymentMethod paymentMethod : paymentMethods) {
-            System.out.printf("%d. %s\n", counter++, paymentMethod.getName()); // Display payment methods with numbers
+            System.out.printf("%d. %s\n", ++numOfPaymentMethods, paymentMethod.getName()); // Display payment methods with numbers
         }
-        System.out.printf("%d. Quit",counter);
-        return counter;
+        System.out.printf("%d. Quit", numOfPaymentMethods+1);
+        return numOfPaymentMethods;
     }
 }

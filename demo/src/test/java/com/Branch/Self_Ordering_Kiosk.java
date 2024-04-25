@@ -13,24 +13,27 @@ import com.Order.Order;
 
 public class Self_Ordering_Kiosk {
 	private boolean get_dine_in_option() {
-		Scanner scanner = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 
 		System.out.println("+----------------+       +---------------+");
 		System.out.println("|  0: Takeaway   |       |  1: Dine-in   |");
 		System.out.println("+----------------+       +---------------+");
 
-		int option = scanner.nextInt();
+		int option = sc.nextInt();
 
 		if (option == 0) {
 			System.out.println("You chose Takeaway...");
+			sc.close();
 			return false;
 
 		} else if (option == 1) {
 			System.out.println("You chose Dine-in...");
+			sc.close();
 			return true;
 
 		} else {
 			System.out.println("Invalid option. Assuming you Dine-in... LOL");
+			sc.close();
 			return true;
 		}
 	}

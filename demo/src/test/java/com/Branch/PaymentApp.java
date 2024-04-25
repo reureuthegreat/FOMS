@@ -8,54 +8,63 @@ import java.util.Scanner;
 
 public class PaymentApp {
     public PaymentApp(){}
-    int choice;
-    Scanner sc= new Scanner(System.in);
+    int choice, numOfPaymentMethods;
     PaymentManagement PM = PaymentManagement.getInstance();
-    public void paymentapp(double amount){
+    
+    public boolean paymentapp(double amount) {
+        Scanner sc = new Scanner(System.in);
+        int quit;
+
         do {
             System.out.println("=================Choose your Payment Type=================");
-            int last =PM.displayPaymentMethods();
+            numOfPaymentMethods = PM.displayPaymentMethods();
+            quit = numOfPaymentMethods+1;
             System.out.println("======================================================================\n");
-            System.out.println("Please enter number of your selection: ");
+            System.out.println("Please enter the number of your selection: ");
             try {
                 choice = sc.nextInt();
                 if (choice == 1) {
                     try {
                         sc.nextLine();
-                        System.out.println("Enter your credit Card Number: ");
+                        System.out.println("Enter your Credit Card Number: ");
                         String CardNum = sc.nextLine();
                         System.out.println("Enter the Expiry Date: ");
                         String ExpDate = sc.nextLine();
                         System.out.println("Enter your Card CVV Number: ");
                         String CVV = sc.nextLine();
                         CreditCardPayment CC = new CreditCardPayment(CardNum, ExpDate, CVV);
-                        CC.processPayment(amount);
-                        return;
+                        return CC.processPayment(amount);
                     } catch (IllegalArgumentException e) {
                         e.printStackTrace();
                     }
-                } else if (choice == 2) {
+                }
+                else if (choice == 2) {
                     sc.nextLine();
-                    System.out.println("Enter your Email to your Paypal Account:");
+                    System.out.println("Enter your Email to your PayPal Account:");
                     String Email = sc.nextLine();
                     System.out.println("Enter the password: ");
                     String password = sc.nextLine();
                     PayPalPayment PP = new PayPalPayment(Email, password);
-                    PP.processPayment(amount);
-                    return;
-                }else if (2<choice && choice<last){
-                    return;
-                }else if (choice == last) {
+                    return PP.processPayment(amount);
+                }
+                else if (2<choice && choice<=numOfPaymentMethods) {
+                    return true;
+                }
+                else if (choice == quit) {
                     // Handle the last option
                     break;
-                } else {
+                }
+                else {
                     System.out.println("Please enter a valid number.");
                 }
             }
-            catch(InputMismatchException e){
+            catch (InputMismatchException e) {
                 System.out.println("Numbers only");
                 sc.nextLine();
             }
-        }while(choice!=3);
+        } while(choice != quit);
+
+        sc.close();
+        return false;
     }
 }
