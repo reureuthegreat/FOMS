@@ -53,6 +53,9 @@ public class PaymentApp {
             catch(InputMismatchException e){
                 System.out.println("Numbers only");
                 sc.nextLine();
+            }catch (Exception e) {
+                System.out.println(e.getMessage());
+                sc.nextLine();
             }
             }while(choice!=3);
         }
