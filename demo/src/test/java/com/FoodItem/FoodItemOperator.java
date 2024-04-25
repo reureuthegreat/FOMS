@@ -8,7 +8,8 @@ import com.Category.ICategoryReader;
 
 public class FoodItemOperator implements IFoodItemOperator{
 
-	public static FoodItem createFoodItem() {
+	@Override
+	public FoodItem createFoodItem() {
 		Scanner scanner = new Scanner(System.in);
 
 		try{
