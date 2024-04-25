@@ -1,27 +1,26 @@
 package com.PaymentManagement;
 
 import net.bytebuddy.ByteBuddy;
-import net.bytebuddy.implementation.bind.annotation.RuntimeType;
-import net.bytebuddy.implementation.MethodDelegation;
-import net.bytebuddy.implementation.bind.annotation.AllArguments;
+import net.bytebuddy.asm.Advice.Origin;
+import net.bytebuddy.implementation.MethodCall;
 import net.bytebuddy.matcher.ElementMatchers;
-import net.bytebuddy.implementation.bind.annotation.Origin;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 
+import java.lang.reflect.Constructor;
 
 public class PaymentMethodFactory {
-    
+    private static String classNameForInterceptor;
+
     public Object createPaymentMethod(String className, Object... params) {
+        classNameForInterceptor = className;
         try {
             // Use Byte Buddy to create a new class implementing the interfaces
             Class<?> dynamicClass = new ByteBuddy()
                 .subclass(Object.class) // Extend Object class
                 .implement(iPaymentMethod.class, Payable.class) // Implement interfaces
                 .method(ElementMatchers.named("getName"))
-                .intercept(MethodDelegation.to(MyInterceptor.class)) // Implement getName method
+                .intercept(MethodCall.invoke(PaymentMethodFactory.class.getMethod("interceptGetName")))
                 .method(ElementMatchers.named("processPayment"))
-                .intercept(MethodDelegation.to(MyInterceptor.class)) // Implement processPayment method
+                .intercept(MethodCall.invoke(PaymentMethodFactory.class.getMethod("interceptProcessPayment")))
                 .make()
                 .load(getClass().getClassLoader())
                 .getLoaded();
@@ -45,36 +44,23 @@ public class PaymentMethodFactory {
             return null;
         }
     }
-    
-    // Interceptor class to provide method implementations
-    public static class MyInterceptor {
 
-        @RuntimeType
-        public static Object interceptGetName(@Origin Method method, @AllArguments Object[] args) {
-            try {
-                // Get the actual instance and cast it to iPaymentMethod
-                iPaymentMethod paymentMethod = (iPaymentMethod) args[0];
-                return paymentMethod.getName();
-            } catch (ClassCastException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-    
-        @RuntimeType
-        public static boolean interceptProcessPayment(@Origin Method method, @AllArguments Object[] args, @AllArguments Object amount) {
-            try {
-                // Get the actual instance and cast it to Payable
-                Payable paymentMethod = (Payable) args[0];
-                return paymentMethod.processPayment((double) amount);
-            } catch (ClassCastException e) {
-                e.printStackTrace();
-                return false;
-            }
+    // Interceptor methods
+    public static String interceptGetName() {
+        try {
+            return classNameForInterceptor;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
-        
+
+    public static boolean interceptProcessPayment() {
+        try {
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
-
-
-    
+}
