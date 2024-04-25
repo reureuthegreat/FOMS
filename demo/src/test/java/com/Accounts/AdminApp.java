@@ -40,7 +40,7 @@ public class AdminApp {
                 switch (choice) {
                     case 1:
                         ManageStaffApp MSA = new ManageStaffApp();
-                        MSA.managestaffapp(staffAccManagement);// calls the Manage Staff Application Interface
+                        MSA.managestaffapp(staffAccManagement,branchManagement);// calls the Manage Staff Application Interface
                         break;
                     case 2:
                         DisplayStaffList dStaffList = new DisplayStaffList();
@@ -59,7 +59,10 @@ public class AdminApp {
                         }
                         Account Acc = staffAccManagement.findStaffAccount(ManagerID);
                         StaffAccount Acc1 = (StaffAccount) Acc;
+                        String oldBranch = Acc1.getBranchName();
                         Admin.assignManager(Acc1,branch);//calls the Admin Account method
+                        branch = branchManagement.getBranchByName(oldBranch);
+                        branch.decrementManagerNum();
                         break;
                     case 4:
                         sc.nextLine();

@@ -1,4 +1,4 @@
-NTU|North Spine Plaza|8|2|1
-JP|Jurong Point|15|0|0
-JE|Jurong East|3|2|1
-NUS|NUS|7|0|0
+NTU|North Spine Plaza|8|1|1
+JP|Jurong Point|15|0|1
+JE|Jurong East|11|2|1
+NUS|NUS|7|0|1

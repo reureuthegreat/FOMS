@@ -85,6 +85,9 @@ public class Branch {
 	public void incrementManagerNum(){
 		this.NumofManagers++;
 	}
+	public void decrementManagerNum(){
+		this.NumberofStaffs--;
+	}
 
 	public boolean verifyBranchQuota(){
 		int totalstaffs= (this.NumberofStaffs)+(this.NumofManagers);
@@ -94,7 +97,10 @@ public class Branch {
 		return false;
 	}
 
-	public void incrementStaffNumm(){
+	public void incrementStaffNum(){
 		this.NumberofStaffs++;
+	}
+	public void decrementStaffNum(){
+		this.NumberofStaffs--;
 	}
 }

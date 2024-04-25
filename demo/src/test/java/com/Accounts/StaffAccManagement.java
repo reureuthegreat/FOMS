@@ -1,4 +1,7 @@
 package com.Accounts;
+import com.Branch.Branch;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.InputMismatchException;
@@ -52,7 +55,7 @@ public class StaffAccManagement {
 	 *
 	 * @return true if the account was successfully added, false otherwise.
 	 */
-	public boolean addAcc() {
+	public boolean addAcc(BranchManagement branchManagement) {
 		Role role = null;
 		boolean isValidSelection = false;
 		do {
@@ -99,12 +102,16 @@ public class StaffAccManagement {
 							System.out.println("Please enter the Staff's Branch");
 							String Branchname = sc.nextLine();
 							StaffAccount staff = new StaffAccount(ID, name, age, gender, role, Branchname);
+							Branch branch = branchManagement.getBranchByName(Branchname);
+							branch.incrementStaffNum();
 							addToAccListSortedByAge(staff);
 							return true;
 						case 2:
 							System.out.println("Please enter the Staff's Branch");
 							Branchname = sc.nextLine();
 							StaffAccount Manager = new StaffAccount(ID, name, age, gender, role, Branchname);
+							branch = branchManagement.getBranchByName(Branchname);
+							branch.incrementManagerNum();
 							addToAccListSortedByAge(Manager);
 							return true;
 						case 3:
@@ -198,11 +205,18 @@ public class StaffAccManagement {
 	 *
 	 * @return true if the account was successfully removed, false otherwise.
 	 */
-	public boolean removeAcc() {
+	public boolean removeAcc(BranchManagement branchManagement) {
 		System.out.println("Enter staff ID you would like to remove:");
 		String ID = sc.nextLine();
 		for (Account Acc : AccList) {
 			if (Acc.verifyID(ID)) {
+				Branch branch = branchManagement.getBranchByName(Acc.getBranchName());
+				if(Acc.getRole()==Role.STAFF){
+					branch.decrementStaffNum();
+				}
+				else{
+					branch.decrementManagerNum();
+				}
 				AccList.remove(Acc);
 				return true;
 			}
