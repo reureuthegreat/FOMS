@@ -1,9 +1,14 @@
 package com.PaymentManagement;
 
 import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.implementation.bind.annotation.RuntimeType;
 import net.bytebuddy.implementation.MethodDelegation;
+import net.bytebuddy.implementation.bind.annotation.AllArguments;
 import net.bytebuddy.matcher.ElementMatchers;
+import net.bytebuddy.implementation.bind.annotation.Origin;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+
 
 public class PaymentMethodFactory {
     
@@ -43,14 +48,33 @@ public class PaymentMethodFactory {
     
     // Interceptor class to provide method implementations
     public static class MyInterceptor {
-        
-        public static String getName(Object instance) {
-            return instance.getClass().getName(); // Get class name from the instance
+
+        @RuntimeType
+        public static Object interceptGetName(@Origin Method method, @AllArguments Object[] args) {
+            try {
+                // Get the actual instance and cast it to iPaymentMethod
+                iPaymentMethod paymentMethod = (iPaymentMethod) args[0];
+                return paymentMethod.getName();
+            } catch (ClassCastException e) {
+                e.printStackTrace();
+                return null;
+            }
         }
-        
-        public static boolean processPayment(double amount) {
-            // Return true or false based on payment processing result
-            return true;
+    
+        @RuntimeType
+        public static boolean interceptProcessPayment(@Origin Method method, @AllArguments Object[] args, @AllArguments Object amount) {
+            try {
+                // Get the actual instance and cast it to Payable
+                Payable paymentMethod = (Payable) args[0];
+                return paymentMethod.processPayment((double) amount);
+            } catch (ClassCastException e) {
+                e.printStackTrace();
+                return false;
+            }
         }
     }
-}
+        
+    }
+
+
+    

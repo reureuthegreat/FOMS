@@ -20,7 +20,7 @@ public class PaymentManagement {
         }
     }
 
-    public void removePaymentMethod(String name) {
+    public void removePaymentMethod(String name) throws Exception {
         Iterator<iPaymentMethod> iterator = paymentMethods.iterator();
         while (iterator.hasNext()) {
             iPaymentMethod paymentMethod = iterator.next();
@@ -29,6 +29,8 @@ public class PaymentManagement {
                 break; // Exit the loop after removing the first matching payment method
             }
         }
+        throw new Exception("Payment method with name " + name + " not found");
+
     }
     
 
