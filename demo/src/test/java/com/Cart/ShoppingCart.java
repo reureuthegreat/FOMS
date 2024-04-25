@@ -9,34 +9,36 @@ import java.util.Scanner;
 import com.FoodItem.FoodItem;
 
 public class ShoppingCart implements IShoppingCart{
-	
-	 // Helper method to add an item to the cart
-    private void addCartItem(ArrayList<FoodItem> customerMenu, Cart cart) {
+
+    // Helper method to add an item to the cart
+    private boolean addCartItem(ArrayList<FoodItem> customerMenu, Cart cart) {
         Scanner scanner = new Scanner(System.in);
-        
+
         System.out.println("Available Items:");
         for (int i = 0; i < customerMenu.size(); i++) {
             System.out.println((i + 1) + ". " + customerMenu.get(i).getName());
         }
-        
+
         System.out.println("Enter the item number to add:");
         int itemNumber = scanner.nextInt();
-        
+
         if (itemNumber >= 1 && itemNumber <= customerMenu.size()) {
             FoodItem selectedItem = customerMenu.get(itemNumber - 1);
             System.out.println("Enter the quantity:");
             int quantity = scanner.nextInt();
             cart.addItem(selectedItem, quantity);
             System.out.println("Item added to cart.");
+            return true;
         } else {
             System.out.println("Invalid item number.");
+            return false;
         }
     }
 
     // Helper method to remove an item from the cart
     private void removeCartItem(Cart cart) {
         Scanner scanner = new Scanner(System.in);
-        
+
         cart.displayCart();
         System.out.println("Enter the name of the item to remove:");
         String itemName = scanner.nextLine();
@@ -46,7 +48,7 @@ public class ShoppingCart implements IShoppingCart{
                 cart.removeItem(item);
                 System.out.println("Item removed from cart.");
                 return;
-            } 
+            }
         }
         System.out.println("Item not found in cart.");
     }
@@ -55,10 +57,10 @@ public class ShoppingCart implements IShoppingCart{
     private void updateCartItem(Cart cart) {
         Scanner scanner = new Scanner(System.in);
         cart.displayCart();
-        
+
         System.out.println("Enter the name of the item to update:");
         String itemName = scanner.nextLine();
-        
+
         for (Map.Entry<FoodItem, Integer> entry : cart.items.entrySet()) {
             FoodItem item = entry.getKey();
             if (item.getName().equalsIgnoreCase(itemName)) {
@@ -71,21 +73,22 @@ public class ShoppingCart implements IShoppingCart{
         }
         System.out.println("Item not found in cart.");
     }
-	
+
     @Override
-	public HashMap<FoodItem, Integer> shopping(ArrayList<FoodItem> customerMenu) {
-		
-		Cart cart = new Cart();
-		
-		Scanner scanner = new Scanner(System.in);
+    public HashMap<FoodItem, Integer> shopping(ArrayList<FoodItem> customerMenu) {
+
+        Cart cart = new Cart();
+
+        Scanner scanner = new Scanner(System.in);
         boolean done = false;
+        boolean addeditem = false;
         while (!done) {
-        	System.out.println("");
-        	System.out.println("");
-        	System.out.println("");
-        	System.out.println("");
-        	
-        	System.out.println("+---------------------------------------+");
+            System.out.println("");
+            System.out.println("");
+            System.out.println("");
+            System.out.println("");
+
+            System.out.println("+---------------------------------------+");
             System.out.println("|          Cart Management Menu         |");
             System.out.println("+---------------------------------------+");
             System.out.println("| 1. Add Item to Cart                   |");
@@ -99,7 +102,9 @@ public class ShoppingCart implements IShoppingCart{
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    addCartItem(customerMenu,cart);
+                    if(addCartItem(customerMenu,cart)){
+                        addeditem = true;
+                    }
                     break;
                 case 2:
                     removeCartItem(cart);
@@ -111,14 +116,18 @@ public class ShoppingCart implements IShoppingCart{
                     cart.displayCart();
                     break;
                 case 5:
-                    return cart.items;
+                    if(addeditem == true){
+                        return cart.items;
+                    }
+                    System.out.println("No items added!");
+                    break;
                 default:
                     done = true;
                     System.out.println("Exiting...");
             }
         }
-        
+
         return null;
-	}
-	
+    }
+
 }

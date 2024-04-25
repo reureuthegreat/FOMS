@@ -1,15 +1,27 @@
 package com.Accounts;
-
-
 import com.Branch.Branch;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Represents an interface for Admin functionalities in the system.
+ * Handles operations such as managing staff, assigning managers, promoting staff, etc.
+ */
 public class AdminApp {
+
+    /**
+     * Constructs an AdminApp object.
+     */
     public AdminApp(){}
     Scanner sc = new Scanner(System.in);
     int choice;
+
+    /**
+     * Executes the Admin application with various functionalities.
+     * @param Admin The AdminAccount object representing the logged-in Admin.
+     * @param staffAccManagement The StaffAccManagement object for managing Staff accounts.
+     * @param branchManagement The BranchManagement object for managing Branches.
+     */
     public void adminapp(AdminAccount Admin, StaffAccManagement staffAccManagement, BranchManagement branchManagement){
             do {
                 System.out.println("==========Admin===========\n" +
@@ -28,7 +40,7 @@ public class AdminApp {
                 switch (choice) {
                     case 1:
                         ManageStaffApp MSA = new ManageStaffApp();
-                        MSA.managestaffapp(staffAccManagement);// calls the Manage Staff Application Interface
+                        MSA.managestaffapp(staffAccManagement,branchManagement);// calls the Manage Staff Application Interface
                         break;
                     case 2:
                         DisplayStaffList dStaffList = new DisplayStaffList();
@@ -46,8 +58,11 @@ public class AdminApp {
                             break;
                         }
                         Account Acc = staffAccManagement.findStaffAccount(ManagerID);
-                        ManagerAccount Acc1 = (ManagerAccount) Acc;
+                        StaffAccount Acc1 = (StaffAccount) Acc;
+                        String oldBranch = Acc1.getBranchName();
                         Admin.assignManager(Acc1,branch);//calls the Admin Account method
+                        branch = branchManagement.getBranchByName(oldBranch);
+                        branch.decrementManagerNum();
                         break;
                     case 4:
                         sc.nextLine();

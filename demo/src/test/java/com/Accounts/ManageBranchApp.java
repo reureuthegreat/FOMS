@@ -2,11 +2,24 @@ package com.Accounts;
 import java.util.Scanner;
 import java.util.NoSuchElementException;
 
-
+/**
+ * A class representing an application for managing branches.
+ * Users can open or close branches using this application.
+ */
 public class ManageBranchApp{
-    public ManageBranchApp(){}
+
+    /**
+     * Constructs a new ManageBranchApp object.
+     */
+    public ManageBranchApp(){} // To Link to AdminApp
     Scanner sc = new Scanner(System.in);
     int choice;
+
+    /**
+     * Manages branch operations based on user input.
+     *
+     * @param branchManagement The BranchManagement object to perform branch operations.
+     */
     public void managebranchapp(BranchManagement branchManagement){
         do{
             System.out.println("===========================.\n"+

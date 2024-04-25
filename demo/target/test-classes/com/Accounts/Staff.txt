@@ -3,5 +3,6 @@ Justin Loh|JustinL|STAFF|M|49|JE|password
 Mary lee|MaryL|STAFF|F|44|JE|password
 Kumar Blackmore|kumarB|STAFF|M|32|NTU|Idea
 Alica Ang|AlicaA|MANAGER|F|27|JE|password
-Alexei|Alexei|MANAGER|M|25|NTU|password
+Alexei|Alexei|MANAGER|M|25|JP|password
 Jerry|Jerry22|STAFF|M|22|NTU|password
+Bryan|bryan2|MANAGER|M|22|NUS|password

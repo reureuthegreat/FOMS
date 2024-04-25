@@ -21,15 +21,19 @@ public class PaymentApp {
                 choice = sc.nextInt();
                 switch(choice){
                     case 1:
-                        sc.nextLine();
-                        System.out.println("Enter your credit Card Number: ");
-                        String CardNum = sc.nextLine();
-                        System.out.println("Enter the Expiry Date: ");
-                        String ExpDate = sc.nextLine();
-                        System.out.println("Enter your Card CVV Number: ");
-                        String CVV = sc.nextLine();
-                        CreditCardPayment CC = new CreditCardPayment(CardNum,ExpDate,CVV);
-                        CC.processPayment(amount);
+                        try {
+                            sc.nextLine();
+                            System.out.println("Enter your credit Card Number: ");
+                            String CardNum = sc.nextLine();
+                            System.out.println("Enter the Expiry Date: ");
+                            String ExpDate = sc.nextLine();
+                            System.out.println("Enter your Card CVV Number: ");
+                            String CVV = sc.nextLine();
+                            CreditCardPayment CC = new CreditCardPayment(CardNum, ExpDate, CVV);
+                            CC.processPayment(amount);
+                        }catch(IllegalArgumentException e){
+                            e.printStackTrace();
+                        }
                         return;
                     case 2:
                         sc.nextLine();
@@ -51,6 +55,6 @@ public class PaymentApp {
                 System.out.println("Numbers only");
                 sc.nextLine();
             }
-            }while(choice!=3);
-        }
+        }while(choice!=3);
+    }
 }

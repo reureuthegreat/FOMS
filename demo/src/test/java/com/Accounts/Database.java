@@ -1,5 +1,4 @@
 package com.Accounts;
-
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -12,20 +11,25 @@ import com.Branch.Branch;
 import com.FoodItem.FoodItem;
 import com.Category.Category;
 
-
 /**
- * Class of Database that stores data related to Guest, Reservation, Room and RoomService
+ * Class that manages the database operations for accounts, branches and menu items..
+ * It provides methods for reading and writing data related to accounts, branches, and menu items.
  * @author User
- *
  */
 public class Database {
     public static final String SEPARATOR = "|";
 
+    /**
+     * Reads account data from the given file and returns it as a list of Account objects.
+     * @param filename The name of the file to read from.
+     * @return An ArrayList containing Account objects read from the file.
+     * @throws IOException If an I/O error occurs while reading the file.
+     */
     // an example of reading
     public static ArrayList<Account> readAccounts(String filename) throws IOException {
         // read String from text file
         ArrayList<String> stringArray = (ArrayList<String>) read(filename);
-        ArrayList<Account> alr = new ArrayList();// to store Professors data
+        ArrayList<Account> alr = new ArrayList();// to store Accounts data
 
         for (int i = 0; i < stringArray.size(); i++) {
             String st = (String)stringArray.get(i);
@@ -52,7 +56,7 @@ public class Database {
                 alr.add(index,Acc);
             } else if (RoleString.compareTo("MANAGER") == 0) {
                 role = Role.MANAGER;
-                ManagerAccount Acc = new ManagerAccount(ID, name, Age, GenderString, role, Branch,password);
+                StaffAccount Acc = new StaffAccount(ID, name, Age, GenderString, role, Branch,password);
                 int index =0;
                 for(Account acc:alr){
                     if(Acc.getAge()>acc.getAge()){
@@ -79,7 +83,12 @@ public class Database {
         return alr;
     }
 
-    // an example of saving
+    /**
+     * Saves the list of accounts to the given file.
+     * @param filename The name of the file to save to.
+     * @param al The list of accounts to save.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public static void saveAccounts(String filename, List al) throws IOException {
         List alw = new ArrayList();// to store Accounts data
 
@@ -105,7 +114,10 @@ public class Database {
     }
 
     /**
-     * Write fixed content to the given file.
+     * Writes the given data to the specified file.
+     * @param fileName The name of the file to write to.
+     * @param data The data to write to the file.
+     * @throws IOException If an I/O error occurs while writing to the file.
      */
     public static void write(String fileName, List data) throws IOException {
         PrintWriter out = new PrintWriter(new FileWriter(fileName));
@@ -120,7 +132,10 @@ public class Database {
     }
 
     /**
-     * Read the contents of the given file.
+     * Reads the contents of the given file and returns them as a list of strings.
+     * @param fileName The name of the file to read from.
+     * @return An ArrayList containing the lines read from the file.
+     * @throws IOException If an I/O error occurs while reading the file.
      */
     public static List read(String fileName) throws IOException {
         List data = new ArrayList();
@@ -135,6 +150,12 @@ public class Database {
         return data;
     }
 
+    /**
+     * Reads branch data from the given file and returns it as a list of Branch objects.
+     * @param filename The name of the file to read from.
+     * @return An ArrayList containing Branch objects read from the file.
+     * @throws IOException If an I/O error occurs while reading the file.
+     */
     public static ArrayList<Branch> readBranch(String filename) throws IOException {
         // read String from text file
         ArrayList<String> stringArray = (ArrayList<String>) read(filename);
@@ -156,6 +177,12 @@ public class Database {
         return alr;
     }
 
+    /**
+     * Saves the list of branches to the given file.
+     * @param filename The name of the file to save to.
+     * @param al The list of branches to save.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public static void saveBranchs(String filename, List al) throws IOException {
         List alw = new ArrayList();// to store Branch data
 
@@ -175,6 +202,13 @@ public class Database {
         }
         write(filename, alw);
     }
+
+    /**
+     * Reads menu data from the given file and returns it as a list of FoodItem objects.
+     * @param filename The name of the file to read from.
+     * @return An ArrayList containing FoodItem objects read from the file.
+     * @throws IOException If an I/O error occurs while reading the file.
+     */
     public static ArrayList<FoodItem> readMenu(String filename) throws IOException {
         // read String from text file
         ArrayList<String> stringArray = (ArrayList<String>) read(filename);
@@ -189,6 +223,7 @@ public class Database {
             String desc = star.nextToken().trim(); // Item desc
             String category = star.nextToken().trim(); // Item Category
             String avail = star.nextToken().trim(); // Item availability
+            String Loc = star.nextToken().trim();
             boolean availability;
             if(avail.compareTo("true")==0){
                 availability = true;
@@ -199,19 +234,19 @@ public class Database {
             FoodItem food = null;
             if (category.compareTo("BURGER") == 0) {
                 cat = Category.BURGER;
-                food = new FoodItem(name,price,desc,cat,availability);
+                food = new FoodItem(name,price,desc,cat,availability,Loc);
                 alr.add(food);
             } else if (category.compareTo("DRINK") == 0) {
                 cat = Category.DRINK;
-                food = new FoodItem(name,price,desc,cat,availability);
+                food = new FoodItem(name,price,desc,cat,availability,Loc);
                 alr.add(food);
             } else if (category.compareTo("SIDEDISH") == 0) {
                 cat = Category.SIDEDISH;
-                food = new FoodItem(name,price,desc,cat,availability);
+                food = new FoodItem(name,price,desc,cat,availability,Loc);
                 alr.add(food);
             } else if(category.compareTo("SETMEAL") == 0) {
                 cat = Category.SETMEAL;
-                food = new FoodItem(name,price,desc,cat,availability);
+                food = new FoodItem(name,price,desc,cat,availability,Loc);
                 alr.add(food);
             }
             else {
@@ -222,6 +257,12 @@ public class Database {
         return alr;
     }
 
+    /**
+     * Saves the list of menu items to the given file.
+     * @param filename The name of the file to save to.
+     * @param al The list of menu items to save.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public static void saveMenu(String filename, List al) throws IOException {
         List alw = new ArrayList();// to store Menu data
 
@@ -237,6 +278,8 @@ public class Database {
             st.append(food.getCategory());
             st.append(SEPARATOR);
             st.append(food.getAvailability());
+            st.append(SEPARATOR);
+            st.append(food.getLocation());
 
             alw.add(st.toString());
         }

@@ -32,13 +32,15 @@ public class FoodItem{
 	private String description;
 	private Category category;
 	private Boolean availability;
+	private String Location;
 	
-	public FoodItem(String name,double price,String description,Category category,Boolean availability) {
+	public FoodItem(String name,double price,String description,Category category,Boolean availability,String Location) {
 		this.name = name;
 		this.price = price;
 		this.description = description;
 		this.category = category;
 		this.availability = availability;
+		this.Location = Location;
 	}
 	
 	//Getters
@@ -80,8 +82,14 @@ public class FoodItem{
 		this.availability = availability;
 	}
 
+	public String getLocation() {
+		return Location;
+	}
 
-	
+	public void setLocation(String location) {
+		Location = location;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		 if (obj == null || getClass() != obj.getClass()) {

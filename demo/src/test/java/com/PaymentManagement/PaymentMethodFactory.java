@@ -31,13 +31,13 @@ public class PaymentMethodFactory {
                 paramTypes[i] = params[i].getClass();
             }
             Constructor<?> constructor = dynamicClass.getConstructor(paramTypes);
-            
+
             // Create new instance with constructor and params
             Object instance = constructor.newInstance(params);
-            
+
             // Return instance
             return instance;
-            
+
         } catch (NoSuchMethodException | InstantiationException |
                  IllegalAccessException | java.lang.reflect.InvocationTargetException e) {
             e.printStackTrace();

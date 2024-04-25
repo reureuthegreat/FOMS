@@ -14,7 +14,7 @@ public class PaymentManagement {
 
         CreditCardPayment initialCreditCardPayment = new CreditCardPayment("4111111111111111", "12/25", "123");
         PayPalPayment initialPayPalPayment = new PayPalPayment("example@email.com", "password");
-        
+
         paymentMethods.add(initialCreditCardPayment);
         paymentMethods.add(initialPayPalPayment);
     }
