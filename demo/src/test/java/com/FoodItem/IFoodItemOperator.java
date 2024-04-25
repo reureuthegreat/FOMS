@@ -8,5 +8,4 @@ public interface IFoodItemOperator {
 	void modifyCategory(FoodItem foodItem);
 	void modifyAvailability(FoodItem foodItem);
 	
-	void updateInfo(FoodItem foodItem);
 }
