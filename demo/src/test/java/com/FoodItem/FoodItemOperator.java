@@ -7,11 +7,11 @@ import com.Category.CategoryReader;
 import com.Category.ICategoryReader;
 
 public class FoodItemOperator implements IFoodItemOperator{
-	
+
 	public static FoodItem createFoodItem() {
 		Scanner scanner = new Scanner(System.in);
 
-        try{
+		try{
 			System.out.println("Enter new FoodItem name:");
 			String name = scanner.next();
 
@@ -24,19 +24,19 @@ public class FoodItemOperator implements IFoodItemOperator{
 
 			System.out.println("Enter new FoodItem description:");
 			String description = scanner.next();
-			
+
 			boolean availability = false;
 			System.out.println("Enter Availability:");
 			System.out.println("1: Available");
 			System.out.println("0: Not Available");
-			
+
 			int avail = scanner.nextInt();
 			if (avail == 1) {
 				availability = true;
 			} else if (avail != 0) {
 				throw new IllegalArgumentException("Invalid input for availability. Please enter 1 for Available or 0 for Not Available.");
 			}
-		
+
 			return new FoodItem(name,price,description,category,availability);
 
 		}catch (Exception e) {
@@ -44,11 +44,11 @@ public class FoodItemOperator implements IFoodItemOperator{
 			return null; // Return null to indicate that FoodItem creation failed
 		}
 	}
-	
+
 	@Override
 	public void modifyPrice(FoodItem foodItem) {
 
-        Scanner scanner = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 		try{
 			System.out.println("Current Price: " + foodItem.getPrice());
 			System.out.println("Enter new Price: ");
@@ -57,10 +57,10 @@ public class FoodItemOperator implements IFoodItemOperator{
 		}catch(Exception e){
 			System.out.println("Error in modifying price " + e.getMessage());
 		}
-    }
+	}
 
 	@Override
-    public void modifyDescription(FoodItem foodItem) {
+	public void modifyDescription(FoodItem foodItem) {
 
 		try{
 			Scanner scanner = new Scanner(System.in);
@@ -71,10 +71,10 @@ public class FoodItemOperator implements IFoodItemOperator{
 		}catch(Exception e){
 			System.out.println("Error in modifying description " + e.getMessage());
 		}
-    }
+	}
 
 	@Override
-    public void modifyCategory(FoodItem foodItem) {
+	public void modifyCategory(FoodItem foodItem) {
 
 		try{
 			System.out.println("Current Category: " + foodItem.getCategory());
@@ -85,11 +85,11 @@ public class FoodItemOperator implements IFoodItemOperator{
 		}catch(Exception e){
 			System.out.println("Error in modifying category " + e.getMessage());
 		}
-    }
-    
+	}
+
 	@Override
-    public void modifyAvailability(FoodItem foodItem) {
-		
+	public void modifyAvailability(FoodItem foodItem) {
+
 		try{
 			boolean availability = foodItem.getAvailability();
 			availability = !availability;
@@ -99,7 +99,7 @@ public class FoodItemOperator implements IFoodItemOperator{
 			System.out.println("Error in modifying category " + e.getMessage());
 		}
 	}
-    
 
-	
+
+
 }

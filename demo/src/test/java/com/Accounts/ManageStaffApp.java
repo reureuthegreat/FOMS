@@ -1,12 +1,24 @@
 package com.Accounts;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Manages staff accounts including creation, deletion, and editing.
+ */
 public class ManageStaffApp {
-    public ManageStaffApp(){}
+
+    /**
+     * Initializes a new instance of ManageStaffApp.
+     */
+    public ManageStaffApp(){} // to link to AdminApp
     Scanner sc = new Scanner(System.in);
     int choice;
+
+    /**
+     * Manages staff accounts based on user input.
+     *
+     * @param staffAccManagement The StaffAccManagement object for managing staff accounts.
+     */
     public void managestaffapp(StaffAccManagement staffAccManagement){
         boolean isValidInput = false;
         do {

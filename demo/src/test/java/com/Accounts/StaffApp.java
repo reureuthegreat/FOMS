@@ -1,28 +1,41 @@
 package com.Accounts;
-
 import com.Branch.Branch;
 import com.Branch.BranchSystem;
-
-import javax.xml.crypto.Data;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.sql.SQLOutput;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Represents the application interface for staff members.
+ */
 public class StaffApp {
+
+    /**
+     * The choice made by the staff member in the application menu.
+     */
     int choice;
+
+    /**
+     * Scanner object for input.
+     */
     Scanner sc = new Scanner(System.in);
+
+    /**
+     * Constructs a new StaffApp object.
+     */
     public StaffApp(){}
 
+    /**
+     * Starts the staff application interface.
+     * @param staffaccmanagement The staff account management system.
+     * @param branchManagement The branch management system.
+     */
     public void staffapp(StaffAccManagement staffaccmanagement, BranchManagement branchManagement){
         Account staff1 = staffaccmanagement.Login();
         if(staff1==null){
             return;
         }
         else if(staff1.getRole() == Role.MANAGER){
-            ManagerAccount Manager = (ManagerAccount) staff1;
+            StaffAccount Manager = (StaffAccount) staff1;
             ManagerApp mA = new ManagerApp();
             mA.managerapp(Manager,branchManagement,staffaccmanagement);//Calls the Manager Application Interface
         }

@@ -51,6 +51,6 @@ public class PaymentApp {
                 System.out.println("Numbers only");
                 sc.nextLine();
             }
-            }while(choice!=3);
-        }
+        }while(choice!=3);
+    }
 }

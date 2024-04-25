@@ -1,5 +1,4 @@
 package com.Accounts;
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -9,27 +8,37 @@ import com.Branch.BranchSystem;
 import com.FoodItem.FoodItem;
 import com.Menu.Menu;
 
+/**
+ * The main class representing the Fast Food Ordering Menu System (FOMS) application.
+ */
 public class FOMSapp {
+
+    /**
+     * The main method to start the FOMS application.
+     *
+     * @param args The command-line arguments.
+     * @throws IOException If an I/O error occurs.
+     */
     public static void main(String[] args) throws IOException {
-        Database DB = new Database();
-        StaffAccManagement staffaccmanagement = new StaffAccManagement();
-        BranchManagement branchManagement = new BranchManagement();
+        Database DB = new Database(); // creates new Database object
+        StaffAccManagement staffaccmanagement = new StaffAccManagement(); // creates new staffaccmanagement object
+        BranchManagement branchManagement = new BranchManagement(); // creates new branchmanagement object
         try {
             ArrayList<Account> AL = DB.readAccounts("/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/Staff.txt");
-            staffaccmanagement.setAccList(AL);
+            staffaccmanagement.setAccList(AL); // reads in Database of Accounts
         }
         catch(IOException e) {
             e.printStackTrace();
         }
         try {
             ArrayList<Branch> ALB = DB.readBranch("/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/Branch.txt");
-            branchManagement.setBranchList(ALB);
+            branchManagement.setBranchList(ALB); //reads in Database of branchs
         }
         catch(IOException e) {
             e.printStackTrace();
         }
         try {
-                Branch br= branchManagement.getBranchByName("NTU");
+                Branch br= branchManagement.getBranchByName("NTU"); // reads in Database for NTUMENU
                 ArrayList<FoodItem> ALF = DB.readMenu("/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/NTUMENU.txt");
                 BranchSystem bs = br.getBranchSystem();
                 Menu menu = new Menu();
@@ -41,7 +50,7 @@ public class FOMSapp {
             e.printStackTrace();
         }
         try {
-            Branch br= branchManagement.getBranchByName("JP");
+            Branch br= branchManagement.getBranchByName("JP"); // reads in Database for JPMENU
             ArrayList<FoodItem> ALF = DB.readMenu("/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/JPMENU.txt");
             BranchSystem bs = br.getBranchSystem();
             Menu menu = new Menu();
@@ -53,7 +62,7 @@ public class FOMSapp {
             e.printStackTrace();
         }
         try {
-            Branch br= branchManagement.getBranchByName("JE");
+            Branch br= branchManagement.getBranchByName("JE"); // reads in Database for JE Menu
             ArrayList<FoodItem> ALF = DB.readMenu("/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/JEMENU.txt");
             BranchSystem bs = br.getBranchSystem();
             Menu menu = new Menu();
@@ -87,7 +96,7 @@ public class FOMSapp {
 				"2. Staff\n"+
 				"3. Shut down\n"+
 				"======================================================================\n");
-			System.out.println("Please enter number of your selection: ");
+			System.out.println("Please enter number of your selection: "); // selection for user.
             try{
 		        choice = sc.nextInt();
 			}
@@ -97,16 +106,16 @@ public class FOMSapp {
 		        choice = sc.nextInt();		 
 			}
             switch(choice){
-                case 1:
+                case 1: // goes to Customer User Interface
                     sc.nextLine();
                     CustomerOrderingSystem COS = new CustomerOrderingSystem();
                     COS.COS(branchManagement);
                     break;
-                case 2:
+                case 2: // goes to Staffs User interface.
                     StaffApp sA = new StaffApp();
                     sA.staffapp(staffaccmanagement,branchManagement); // Calls the Staff Application interface
                     break;
-                case 3:
+                case 3: // Saves all the changes made in current run into Database.
                     try {
                         String filename = "/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/Staff.txt";
                         DB.saveAccounts(filename, staffaccmanagement.getStaffAccounts());
@@ -152,7 +161,6 @@ public class FOMSapp {
 					break;
             }
         }while(choice!=3);
-
         sc.close();
     }
 }
