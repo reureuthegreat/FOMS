@@ -223,6 +223,7 @@ public class Database {
             String desc = star.nextToken().trim(); // Item desc
             String category = star.nextToken().trim(); // Item Category
             String avail = star.nextToken().trim(); // Item availability
+            String Loc = star.nextToken().trim();
             boolean availability;
             if(avail.compareTo("true")==0){
                 availability = true;
@@ -233,19 +234,19 @@ public class Database {
             FoodItem food = null;
             if (category.compareTo("BURGER") == 0) {
                 cat = Category.BURGER;
-                food = new FoodItem(name,price,desc,cat,availability);
+                food = new FoodItem(name,price,desc,cat,availability,Loc);
                 alr.add(food);
             } else if (category.compareTo("DRINK") == 0) {
                 cat = Category.DRINK;
-                food = new FoodItem(name,price,desc,cat,availability);
+                food = new FoodItem(name,price,desc,cat,availability,Loc);
                 alr.add(food);
             } else if (category.compareTo("SIDEDISH") == 0) {
                 cat = Category.SIDEDISH;
-                food = new FoodItem(name,price,desc,cat,availability);
+                food = new FoodItem(name,price,desc,cat,availability,Loc);
                 alr.add(food);
             } else if(category.compareTo("SETMEAL") == 0) {
                 cat = Category.SETMEAL;
-                food = new FoodItem(name,price,desc,cat,availability);
+                food = new FoodItem(name,price,desc,cat,availability,Loc);
                 alr.add(food);
             }
             else {
@@ -277,6 +278,8 @@ public class Database {
             st.append(food.getCategory());
             st.append(SEPARATOR);
             st.append(food.getAvailability());
+            st.append(SEPARATOR);
+            st.append(food.getLocation());
 
             alw.add(st.toString());
         }

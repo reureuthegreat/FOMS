@@ -36,8 +36,11 @@ public class FoodItemOperator implements IFoodItemOperator{
 			} else if (avail != 0) {
 				throw new IllegalArgumentException("Invalid input for availability. Please enter 1 for Available or 0 for Not Available.");
 			}
+			scanner.nextLine();
+			System.out.println("Enter the Branch this FoodItem is for:");
+			String Loc = scanner.nextLine();
 
-			return new FoodItem(name,price,description,category,availability);
+			return new FoodItem(name,price,description,category,availability,Loc);
 
 		}catch (Exception e) {
 			System.out.println("Error creating FoodItem: " + e.getMessage());

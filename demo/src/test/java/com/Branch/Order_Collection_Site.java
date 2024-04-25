@@ -7,12 +7,8 @@ import java.util.Scanner;
 import com.Order.Order;
 
 public class Order_Collection_Site {
-    /*
-     * Utility Functions for Display_Orders
-     */
-
 	 // Function to get order ID from the list
-    private String getOrderId(List<Order> orderList, int index) {
+    public static String getOrderId(List<Order> orderList, int index) {
         if (index < orderList.size()) {
             return " #" + orderList.get(index).get_order_id();
         } else {
@@ -21,12 +17,10 @@ public class Order_Collection_Site {
     }
 
     // Function to pad the string to a specified length
-    private String padTo(String str, int length) {
+    public static String padTo(String str, int length) {
         return String.format("%-" + length + "s", str);
     }
     
-
-
     public void Display_Orders(BranchSystem branchSystem) {
     	
     	branchSystem.checkUncollectedOrders();
@@ -61,8 +55,6 @@ public class Order_Collection_Site {
 
         System.out.println("+----------------------+----------------------+----------------------+----------------------+");
     }
-    
-
     
     public void collect_order(BranchSystem branchSystem) {
     	System.out.println("Order # for Collection? ");

@@ -38,42 +38,24 @@ public class FOMSapp {
             e.printStackTrace();
         }
         try {
-                Branch br= branchManagement.getBranchByName("NTU"); // reads in Database for NTUMENU
-                ArrayList<FoodItem> ALF = DB.readMenu("/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/NTUMENU.txt");
-                BranchSystem bs = br.getBranchSystem();
-                Menu menu = new Menu();
-                menu.setMenu(ALF);
-                menu.setCustomer_menu(ALF);
-                bs.setMenu(menu);
+            ArrayList<FoodItem> ALF = DB.readMenu("/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/MENU.txt");
+                for(Branch br: BranchManagement.getBranchList()){ // iterates thru all branches
+                    ArrayList<FoodItem> branchfoodlist = new ArrayList<>(); // create a temp Arraylist for that branch.
+                    for(FoodItem food : ALF){ //iterates thru all the fooditem menus
+                        if(food.getLocation().compareTo(br.getBranchName()) == 0){ // check if food location is same as branch.
+                            branchfoodlist.add(food);
+                        }
+                    }
+                    BranchSystem bs = br.getBranchSystem(); // once all the food items for that branch has been added. Sets it as the menu for that branch.
+                    Menu menu = new Menu();
+                    menu.setMenu(branchfoodlist);
+                    menu.setCustomer_menu(branchfoodlist);
+                    bs.setMenu(menu);
+                }
             }
         catch(IOException e) {
             e.printStackTrace();
         }
-        try {
-            Branch br= branchManagement.getBranchByName("JP"); // reads in Database for JPMENU
-            ArrayList<FoodItem> ALF = DB.readMenu("/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/JPMENU.txt");
-            BranchSystem bs = br.getBranchSystem();
-            Menu menu = new Menu();
-            menu.setMenu(ALF);
-            menu.setCustomer_menu(ALF);
-            bs.setMenu(menu);
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            Branch br= branchManagement.getBranchByName("JE"); // reads in Database for JE Menu
-            ArrayList<FoodItem> ALF = DB.readMenu("/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/JEMENU.txt");
-            BranchSystem bs = br.getBranchSystem();
-            Menu menu = new Menu();
-            menu.setMenu(ALF);
-            menu.setCustomer_menu(ALF);
-            bs.setMenu(menu);
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
-
         System.out.println("Welcome to KFC!");
         System.out.println(" .----------------.  .----------------.  .----------------. \n" +
                 "| .--------------. || .--------------. || .--------------. |\n" +
@@ -129,29 +111,14 @@ public class FOMSapp {
                         e.printStackTrace();
                     }
                     try {
-                        Branch branch = branchManagement.getBranchByName("NTU");
-                        BranchSystem BS = branch.getBranchSystem();
-                        Menu menu = BS.getMenu();
-                        String filename = "/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/NTUMENU.txt";
-                        DB.saveMenu(filename,menu.getMenu());
-                    }catch(IOException e){
-                        e.printStackTrace();
-                    }
-                    try {
-                        Branch branch = branchManagement.getBranchByName("JP");
-                        BranchSystem BS = branch.getBranchSystem();
-                        Menu menu = BS.getMenu();
-                        String filename = "/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/JPMENU.txt";
-                        DB.saveMenu(filename,menu.getMenu());
-                    }catch(IOException e){
-                        e.printStackTrace();
-                    }
-                    try {
-                        Branch branch = branchManagement.getBranchByName("JE");
-                        BranchSystem BS = branch.getBranchSystem();
-                        Menu menu = BS.getMenu();
-                        String filename = "/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/JEMENU.txt";
-                        DB.saveMenu(filename,menu.getMenu());
+                        ArrayList<FoodItem> FoodList = new ArrayList<>(); /*creates a temp ArrayList of Food*/
+                        for(Branch branch : BranchManagement.getBranchList()){ //iterates through all the branches.
+                            BranchSystem BS = branch.getBranchSystem();
+                            Menu menu = BS.getMenu();
+                            FoodList.addAll(menu.getMenu()); /*appends all objects in that branch menu food list into the temp ArrayList*/
+                        }
+                        String filename = "/Users/cheokerinos/IdeaProjects/FastFoodOrdering/src/main/java/com/Accounts/MENU.txt";
+                        DB.saveMenu(filename,FoodList); // saves it.
                     }catch(IOException e){
                         e.printStackTrace();
                     }

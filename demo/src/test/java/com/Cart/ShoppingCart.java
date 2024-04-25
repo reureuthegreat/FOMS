@@ -11,7 +11,7 @@ import com.FoodItem.FoodItem;
 public class ShoppingCart implements IShoppingCart{
 
     // Helper method to add an item to the cart
-    private void addCartItem(ArrayList<FoodItem> customerMenu, Cart cart) {
+    private boolean addCartItem(ArrayList<FoodItem> customerMenu, Cart cart) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Available Items:");
@@ -28,8 +28,10 @@ public class ShoppingCart implements IShoppingCart{
             int quantity = scanner.nextInt();
             cart.addItem(selectedItem, quantity);
             System.out.println("Item added to cart.");
+            return true;
         } else {
             System.out.println("Invalid item number.");
+            return false;
         }
     }
 
@@ -79,6 +81,7 @@ public class ShoppingCart implements IShoppingCart{
 
         Scanner scanner = new Scanner(System.in);
         boolean done = false;
+        boolean addeditem = false;
         while (!done) {
             System.out.println("");
             System.out.println("");
@@ -99,7 +102,9 @@ public class ShoppingCart implements IShoppingCart{
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    addCartItem(customerMenu,cart);
+                    if(addCartItem(customerMenu,cart)){
+                        addeditem = true;
+                    }
                     break;
                 case 2:
                     removeCartItem(cart);
@@ -111,7 +116,11 @@ public class ShoppingCart implements IShoppingCart{
                     cart.displayCart();
                     break;
                 case 5:
-                    return cart.items;
+                    if(addeditem == true){
+                        return cart.items;
+                    }
+                    System.out.println("No items added!");
+                    break;
                 default:
                     done = true;
                     System.out.println("Exiting...");
