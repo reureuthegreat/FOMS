@@ -72,6 +72,7 @@ public class ShoppingCart implements IShoppingCart{
         System.out.println("Item not found in cart.");
     }
 	
+    @Override
 	public HashMap<FoodItem, Integer> shopping(ArrayList<FoodItem> customerMenu) {
 		
 		Cart cart = new Cart();
@@ -112,6 +113,7 @@ public class ShoppingCart implements IShoppingCart{
                 case 5:
                     return cart.items;
                 default:
+                    done = true;
                     System.out.println("Exiting...");
             }
         }

@@ -46,9 +46,6 @@ public class Order {
     
     public void DisplayOrder() {
     	
-    	
-        double totalPrice = 0.0; // Initialize total price
-        
         System.out.println("+-------------------------------------------+");
         System.out.printf("| %s%-32s |\n", "Order NO.", order_id);
         
@@ -65,11 +62,10 @@ public class Order {
             String itemName = item.getName();
             int quantity = items.get(item); // Get quantity of the item
             
-            totalPrice += item.getPrice() * quantity; // Add item price to total price
             System.out.printf("| - %-20s   %-16d |\n", itemName.substring(0, Math.min(itemName.length(), 20)), quantity);
         }
         System.out.println("|                                           |");
-        System.out.printf("| %s  %-33s |\n", "Total:", "$" + totalPrice);
+        System.out.printf("| %s  %-33s |\n", "Total:", "$" + calculatePrice());
         System.out.println("+-------------------------------------------+");
     }
 

@@ -40,9 +40,7 @@ public class Self_Ordering_Kiosk {
 		/*
 		 *  Settings
 		 */
-		
-		
-				
+					
 		// 1. Get the Branch Menu & Set up the MenuOperator to display the menu
 		ArrayList<FoodItem> customer_menu = branchSystem.Get_Customer_Menu();
 		ICustomerMenu menu_operator = new MenuOperator();
@@ -50,11 +48,9 @@ public class Self_Ordering_Kiosk {
 		// 2. Set up the Shopping Cart
 		IShoppingCart shopping_cart = new ShoppingCart();
 		
-		
 		/*
 		 *  Ordering 
 		 */
-		
 		
 		// 1. Display Menu to Customer
 		menu_operator.Display_Customer_Menu(customer_menu);

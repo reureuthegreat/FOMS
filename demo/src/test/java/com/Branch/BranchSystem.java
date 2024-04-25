@@ -100,8 +100,6 @@ public class BranchSystem{
 	public void addOrder(Order order) {
 		new_order_list.add(order);
 	}
-	
-	
  
     public void collectOrder(int orderId) {
         for (Order order : ready_to_pickup_order_list) {
