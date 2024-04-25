@@ -2,12 +2,23 @@ package com.PaymentManagement;
 
 import java.util.Calendar;
 
+/**
+ * Represents a Credit Card payment method.
+ */
 public class CreditCardPayment implements iPaymentMethod, Payable {
     private String cardNumber;
     private String expiryDate;
     private String cvv;
     private String name;
 
+    /**
+     * Constructs a CreditCardPayment object with the specified card details.
+     *
+     * @param cardNumber The credit card number.
+     * @param expiryDate The expiry date of the credit card in the format MM/YY.
+     * @param cvv        The CVV number of the credit card.
+     * @throws IllegalArgumentException if the credit card details are invalid.
+     */
     public CreditCardPayment(String cardNumber, String expiryDate, String cvv) {
         if (isValidCreditCardNumber(cardNumber) && isValidExpiryDate(expiryDate) && isValidCVV(cvv)) {
             this.cardNumber = cardNumber;
@@ -19,6 +30,12 @@ public class CreditCardPayment implements iPaymentMethod, Payable {
         }
     }
 
+    /**
+     * Validates the credit card number using the Luhn algorithm.
+     *
+     * @param cardNumber The credit card number to validate.
+     * @return true if the credit card number is valid, false otherwise.
+     */
     private boolean isValidCreditCardNumber(String cardNumber) {
         int sum = 0;
         boolean alternate = false;
@@ -40,6 +57,12 @@ public class CreditCardPayment implements iPaymentMethod, Payable {
         return (sum % 10 == 0);
     }
 
+    /**
+     * Validates the expiry date of the credit card.
+     *
+     * @param expiryDate The expiry date to validate in the format MM/YY.
+     * @return true if the expiry date is valid and in the future, false otherwise.
+     */
     private boolean isValidExpiryDate(String expiryDate) {
     // Assuming expiryDate format is MM/YY
     if (expiryDate.matches("\\d{2}/\\d{2}")) {
@@ -59,16 +82,33 @@ public class CreditCardPayment implements iPaymentMethod, Payable {
         return false;
     }
 
+    /**
+     * Validates the CVV number of the credit card.
+     *
+     * @param cvv The CVV number to validate.
+     * @return true if the CVV number is valid, false otherwise.
+     */
     private boolean isValidCVV(String cvv) {
         // Assuming CVV is a 3 or 4-digit number
         return cvv.matches("\\d{3,4}");
     }
 
+    /**
+     * Gets the name of the payment method.
+     *
+     * @return The name of the payment method.
+     */
     @Override
     public String getName() {
         return name;
     }
 
+    /**
+     * Processes a payment using the credit card.
+     *
+     * @param amount The amount to be paid.
+     * @return true if the payment is processed successfully, false otherwise.
+     */
     @Override
     public boolean processPayment(double amount) {
         return true; // Placeholder

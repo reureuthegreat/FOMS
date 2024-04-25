@@ -6,11 +6,23 @@ import java.sql.SQLOutput;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Represents a Payment Application for processing payments using different payment methods.
+ */
 public class PaymentApp {
+    /**
+     * Constructs a PaymentApp object.
+     */
     public PaymentApp(){}
     int choice, numOfPaymentMethods;
     PaymentManagement PM = PaymentManagement.getInstance();
-    
+
+    /**
+     * Process a payment with the specified amount using various payment methods.
+     *
+     * @param amount The amount to be paid.
+     * @return true if the payment is successful, otherwise false.
+     */
     public boolean paymentapp(double amount) {
         Scanner sc = new Scanner(System.in);
         int quit;

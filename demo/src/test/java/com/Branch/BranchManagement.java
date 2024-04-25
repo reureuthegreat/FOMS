@@ -6,14 +6,29 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Manages the operations related to branches, such as adding and removing branches.
+ */
 public class BranchManagement {
+
+	/** The staff quota for a branch. */
 	int Quota;
+
+	/** The list of branches managed by this BranchManagement instance. */
 	static ArrayList<Branch> BranchList;
 
+	/**
+	 * Initializes a new instance of BranchManagement with an empty list of branches.
+	 */
 	public BranchManagement(){
 		BranchList = new ArrayList<>();
 	}
 
+	/**
+	 * Adds a new branch to the branch list.
+	 *
+	 * @return true if the branch is added successfully, false otherwise.
+	 */
 	public boolean AddBranch() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Please Enter Branch Name: ");
@@ -48,6 +63,11 @@ public class BranchManagement {
 		return true;
 	}
 
+	/**
+	 * Removes a branch from the branch list.
+	 *
+	 * @return true if the branch is removed successfully, false otherwise.
+	 */
 	public boolean RemoveBranch() {
 		System.out.println("Please enter the name of the Branch you would like to remove: ");
 		Scanner sc = new Scanner(System.in);
@@ -63,10 +83,21 @@ public class BranchManagement {
 		return false;
 	}
 
+	/**
+	 * Retrieves the list of branches managed by this BranchManagement instance.
+	 *
+	 * @return The list of branches.
+	 */
 	public static ArrayList<Branch> getBranchList() {
 		return BranchList;
 	}
 
+	/**
+	 * Retrieves a branch by its name.
+	 *
+	 * @param BranchName The name of the branch to retrieve.
+	 * @return The branch if found, or null if not found.
+	 */
 	public Branch getBranchByName(String BranchName){
 		for(Branch branch: BranchList){
 			if(branch.verifyBranchName(BranchName)){
@@ -76,6 +107,11 @@ public class BranchManagement {
 		return null;
 	}
 
+	/**
+	 * Sets the list of branches managed by this BranchManagement instance.
+	 *
+	 * @param branchList The list of branches to set.
+	 */
 	public static void setBranchList(ArrayList<Branch> branchList) {
 		BranchList = branchList;
 	}

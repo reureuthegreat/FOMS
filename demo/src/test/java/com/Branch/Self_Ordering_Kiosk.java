@@ -11,7 +11,15 @@ import com.Menu.ICustomerMenu;
 import com.Menu.MenuOperator;
 import com.Order.Order;
 
+/**
+ * Represents a Self-Ordering Kiosk system for placing orders at a restaurant branch.
+ */
 public class Self_Ordering_Kiosk {
+	/**
+	 * Obtains the dine-in option from the user.
+	 *
+	 * @return true if the user chooses dine-in, false for takeaway.
+	 */
 	private boolean get_dine_in_option() {
 		Scanner sc = new Scanner(System.in);
 
@@ -38,6 +46,12 @@ public class Self_Ordering_Kiosk {
 		}
 	}
 
+	/**
+	 * Handles the ordering process using the self-ordering kiosk.
+	 *
+	 * @param branchSystem The BranchSystem object managing the branch.
+	 * @return true if the ordering process is successful, otherwise false.
+	 */
 	public boolean ordering(BranchSystem branchSystem) {
 
 		/*

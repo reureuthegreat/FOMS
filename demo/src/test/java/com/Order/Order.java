@@ -10,7 +10,9 @@ import java.util.HashMap;
 import com.FoodItem.FoodItem;
 
 
-
+/**
+ * Represents an order made by a customer.
+ */
 public class Order {
     private static int lastOrderId = 0;
     protected int order_id;
@@ -20,11 +22,13 @@ public class Order {
     protected HashMap<FoodItem, Integer> items;
     protected Boolean option;
 
-    /*
-     * DINE_IN = True
-     * TAKEAWAY = False
+    /**
+     * Constructs an Order object with the specified items and option.
+     *
+     * @param items   A HashMap containing FoodItem objects as keys and their corresponding quantities as values.
+     * @param option  A Boolean value representing the order type (true for DINE_IN, false for TAKEAWAY).
+     *
      */
-
     // Constructor
     public Order(HashMap<FoodItem, Integer> items, Boolean option) {
         lastOrderId++;  // Increment lastOrderId
@@ -36,14 +40,27 @@ public class Order {
         this.option = option; // Set option
     }
 
+    /**
+     * Retrieves the order ID.
+     *
+     * @return The order ID.
+     */
     public int get_order_id() {
         return order_id;
     }
 
+    /**
+     * Checks if the current time is beyond the collection deadline for the order.
+     *
+     * @return true if the current time is after the collection deadline, false otherwise.
+     */
     public boolean beyond_collection_deadline() {
         return LocalTime.now().isAfter(collection_deadline);
     }
 
+    /**
+     * Displays the order details including order ID, date and time, items, quantities, and total price.
+     */
     public void DisplayOrder() {
 
         System.out.println("+-------------------------------------------+");
@@ -68,6 +85,12 @@ public class Order {
         System.out.printf("| %s  %-33s |\n", "Total:", "$" + calculatePrice());
         System.out.println("+-------------------------------------------+");
     }
+
+    /**
+     * Calculates the total price of the order based on the item prices and quantities.
+     *
+     * @return The total price of the order.
+     */
 
     public double calculatePrice(){
         double totalPrice = 0;

@@ -6,8 +6,19 @@ import java.util.Scanner;
 
 import com.Order.Order;
 
+/**
+ * The Order_Collection_Site class manages the display of orders and the collection process
+ * at a branch's order collection site.
+ */
 public class Order_Collection_Site {
 	 // Function to get order ID from the list
+    /**
+     * Retrieves the order ID from the specified list at the given index.
+     *
+     * @param orderList The list of orders to retrieve the ID from.
+     * @param index     The index of the order to retrieve.
+     * @return The order ID if the index is valid, an empty string otherwise.
+     */
     public static String getOrderId(List<Order> orderList, int index) {
         if (index < orderList.size()) {
             return " #" + orderList.get(index).get_order_id();
@@ -17,10 +28,23 @@ public class Order_Collection_Site {
     }
 
     // Function to pad the string to a specified length
+    /**
+     * Pads the given string to the specified length.
+     *
+     * @param str    The string to pad.
+     * @param length The desired length of the padded string.
+     * @return The padded string.
+     */
     public static String padTo(String str, int length) {
         return String.format("%-" + length + "s", str);
     }
-    
+
+    /**
+     * Displays the orders in different categories: preparing, ready to pick up, completed, and cancelled.
+     * Orders are displayed in four vertical columns with boxes around them.
+     *
+     * @param branchSystem The branch system containing the orders to display.
+     */
     public void Display_Orders(BranchSystem branchSystem) {
     	
     	branchSystem.checkUncollectedOrders();
@@ -55,7 +79,12 @@ public class Order_Collection_Site {
 
         System.out.println("+----------------------+----------------------+----------------------+----------------------+");
     }
-    
+
+    /**
+     * Collects an order for pickup based on the user's input of the order ID.
+     *
+     * @param branchSystem The branch system containing the orders.
+     */
     public void collect_order(BranchSystem branchSystem) {
     	System.out.println("Order # for Collection? ");
     	Scanner scanner = new Scanner(System.in);

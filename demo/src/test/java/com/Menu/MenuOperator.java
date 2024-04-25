@@ -5,10 +5,18 @@ import java.util.Scanner;
 
 import com.FoodItem.FoodItem;
 import com.FoodItem.FoodItemOperator;
-import com.FoodItem.IFoodItemOperator;
 
+/**
+ * MenuOperator class.
+ * Implements both customer and manager menu operations.
+ */
 public class MenuOperator implements ICustomerMenu,IManagerMenu{
 
+	/**
+	 * Displays the menu for managers.
+	 *
+	 * @param menu The Menu object representing the manager's menu.
+	 */
 	@Override
 	public void Display_Manager_Menu(Menu menu) {
 		System.out.println("");
@@ -29,6 +37,11 @@ public class MenuOperator implements ICustomerMenu,IManagerMenu{
 		}
 	}
 
+	/**
+	 * Displays the menu for customers.
+	 *
+	 * @param customer_menu The ArrayList of FoodItems representing the customer menu.
+	 */
 	@Override
 	public void Display_Customer_Menu(ArrayList<FoodItem> customer_menu) {
 		System.out.println("");
@@ -48,6 +61,13 @@ public class MenuOperator implements ICustomerMenu,IManagerMenu{
 	}
 
 	//check for duplicated/existing names in the menu
+	/**
+	 * Checks for duplicated or existing names in the menu.
+	 *
+	 * @param name The name to be checked for duplicates.
+	 * @param menu The ArrayList of FoodItem objects representing the menu.
+	 * @return true if the name does not exist in the menu, false otherwise.
+	 */
 	private boolean check_duplicates(String name,ArrayList<FoodItem> menu) {
 		for (FoodItem foodItem:menu) {
 			if (foodItem.getName().equals(name))
@@ -56,10 +76,14 @@ public class MenuOperator implements ICustomerMenu,IManagerMenu{
 		return true;
 	}
 
+	/**
+	 * Adds a new FoodItem to the menu if its name does not already exist.
+	 *
+	 * @param menu The Menu object to which the FoodItem will be added.
+	 */
 	@Override
 	public void Add_FoodItems(Menu menu) {
-		IFoodItemOperator foodItemOperator = new FoodItemOperator();
-		FoodItem foodItem = foodItemOperator.createFoodItem();
+		FoodItem foodItem = FoodItemOperator.createFoodItem();
 		//check if name already exists
 		if (check_duplicates(foodItem.getName(),menu.getMenu())) {
 			menu.addItem(foodItem);
@@ -69,6 +93,11 @@ public class MenuOperator implements ICustomerMenu,IManagerMenu{
 		}
 	}
 
+	/**
+	 * Removes a FoodItem from the menu based on user input of the item's index.
+	 *
+	 * @param menu The Menu object from which the FoodItem will be removed.
+	 */
 	@Override
 	public void Remove_FoodItems(Menu menu) {
 
@@ -97,6 +126,11 @@ public class MenuOperator implements ICustomerMenu,IManagerMenu{
 
 	}
 
+	/**
+	 * Updates a FoodItem in the menu based on user input of the item's ordering number.
+	 *
+	 * @param menu The Menu object containing the FoodItem to be updated.
+	 */
 	@Override
 	public void Update_FoodItems(Menu menu) {
 		Scanner scanner = new Scanner(System.in);

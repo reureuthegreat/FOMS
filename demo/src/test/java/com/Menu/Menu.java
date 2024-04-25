@@ -7,26 +7,47 @@ import com.FoodItem.FoodItem;
 import com.FoodItem.FoodItemOperator;
 import com.FoodItem.IFoodItemOperator;
 
+/**
+ * Represents a menu containing FoodItems.
+ */
 public class Menu{
 
     protected ArrayList<FoodItem> menu;
     protected ArrayList<FoodItem> customer_menu;
 
+    /**
+     * Constructs a new Menu object with empty menu and customer_menu lists.
+     */
     public Menu() {
         this.menu = new ArrayList<FoodItem>();
         this.customer_menu = new ArrayList<FoodItem>();
     }
 
+    /**
+     * Adds a FoodItem to the menu.
+     *
+     * @param FoodItem The FoodItem to be added to the menu.
+     */
     protected void addItem(FoodItem FoodItem) {
         menu.add(FoodItem);
         Refresh_CustomerMenu();
     }
 
+    /**
+     * Removes a FoodItem from the menu.
+     *
+     * @param foodItem The FoodItem to be removed from the menu.
+     */
     protected void removeItem(FoodItem foodItem) {
         menu.remove(foodItem);
         Refresh_CustomerMenu();
     }
 
+    /**
+     * Updates a FoodItem in the menu by allowing the user to modify its price, description, category, or availability.
+     *
+     * @param foodItem The FoodItem to be updated.
+     */
     protected void updateItem(FoodItem foodItem) {
 
         IFoodItemOperator foodItemOperator = new FoodItemOperator();
@@ -77,15 +98,29 @@ public class Menu{
         Refresh_CustomerMenu();
     }
 
+
+    /**
+     * Retrieves the menu containing FoodItems.
+     *
+     * @return The ArrayList of FoodItems representing the menu.
+     */
     public ArrayList<FoodItem> getMenu() {
         return menu;
     }
 
-
+    /**
+     * Retrieves the customer menu containing available FoodItems.
+     *
+     * @return The ArrayList of FoodItems representing the customer menu.
+     */
     public ArrayList<FoodItem> getCustomerMenu() {
         return customer_menu;
     }
 
+    /**
+     * Refreshes the customer menu by updating it with available FoodItems from the main menu.
+     * Only FoodItems with availability set to true are included in the customer menu.
+     */
     public void Refresh_CustomerMenu(){
         ArrayList<FoodItem> availableItems = new ArrayList<FoodItem>();
         for (FoodItem item : this.menu) {
@@ -96,10 +131,20 @@ public class Menu{
         this.customer_menu = availableItems;
     }
 
+    /**
+     * Sets the main menu of FoodItems.
+     *
+     * @param menu The ArrayList of FoodItems representing the main menu to be set.
+     */
     public void setMenu(ArrayList<FoodItem> menu) {
         this.menu = menu;
     }
 
+    /**
+     * Sets the customer menu of FoodItems.
+     *
+     * @param customer_menu The ArrayList of FoodItems representing the customer menu to be set.
+     */
     public void setCustomer_menu(ArrayList<FoodItem> customer_menu) {
         this.customer_menu = customer_menu;
     }

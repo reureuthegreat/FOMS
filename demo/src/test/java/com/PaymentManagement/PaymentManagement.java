@@ -3,11 +3,17 @@ package com.PaymentManagement;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Manages the payment methods available in the system.
+ */
 public class PaymentManagement {
     private static PaymentManagement instance = null;
     private ArrayList<iPaymentMethod> paymentMethods;
     private PaymentMethodFactory paymentMethodFactory;
 
+    /**
+     * Constructs a PaymentManagement instance.
+     */
     private PaymentManagement() {
         this.paymentMethods = new ArrayList<>();
         this.paymentMethodFactory = new PaymentMethodFactory();
@@ -19,6 +25,11 @@ public class PaymentManagement {
         paymentMethods.add(initialPayPalPayment);
     }
 
+    /**
+     * Returns the singleton instance of PaymentManagement.
+     *
+     * @return The singleton instance of PaymentManagement.
+     */
     public static PaymentManagement getInstance() {
         if (instance == null) {
             instance = new PaymentManagement();
@@ -26,6 +37,13 @@ public class PaymentManagement {
         return instance;
     }
 
+
+    /**
+     * Adds a new payment method to the system.
+     *
+     * @param className The class name of the payment method to be added.
+     * @param params    The parameters required to create the payment method.
+     */
     public void addPaymentMethod(String className, Object... params) {
         iPaymentMethod paymentMethod = (iPaymentMethod) paymentMethodFactory.createPaymentMethod(className, params);
         if (paymentMethod != null) {
@@ -35,6 +53,12 @@ public class PaymentManagement {
         }
     }
 
+    /**
+     * Removes a payment method from the system.
+     *
+     * @param name The name of the payment method to be removed.
+     * @throws Exception If the payment method with the specified name is not found.
+     */
     public void removePaymentMethod(String name) throws Exception {
         Iterator<iPaymentMethod> iterator = paymentMethods.iterator();
         while (iterator.hasNext()) {
@@ -47,6 +71,11 @@ public class PaymentManagement {
         throw new Exception("Payment method with name " + name + " not found");
     }
 
+    /**
+     * Displays the list of payment methods available in the system.
+     *
+     * @return The number of payment methods displayed.
+     */
     public int displayPaymentMethods() {
         if (paymentMethods.isEmpty()) {
             System.out.println("No payment methods added.");

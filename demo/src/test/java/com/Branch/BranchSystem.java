@@ -12,14 +12,20 @@ import com.Menu.Menu;
 import com.Menu.MenuOperator;
 import com.Order.Order;
 
+/**
+ * The BranchSystem class represents the system of a branch, including menu management and order processing.
+ */
 public class BranchSystem{
+
 	protected Menu menu;
 	protected ArrayList<Order> new_order_list;
 	protected ArrayList<Order> ready_to_pickup_order_list;
 	protected ArrayList<Order> cancelled_order_list;
 	protected ArrayList<Order> completed_order_list;
 
-
+	/**
+	 * Constructs a new BranchSystem with default menu and order lists.
+	 */
 	public BranchSystem() {
 		this.menu = new Menu();
 		this.new_order_list = new ArrayList<Order>();
@@ -34,11 +40,20 @@ public class BranchSystem{
 	 */
 
 	//For Customer Only
+	/**
+	 * Retrieves the customer menu from the branch system.
+	 *
+	 * @return The customer menu as an ArrayList of FoodItem objects.
+	 */
 	public ArrayList<FoodItem> Get_Customer_Menu() {
 		return menu.getCustomerMenu();
 	}
 
 	//For Manager Only
+	/**
+	 * Manages the branch's menu by allowing a manager to add, remove, update food items,
+	 * and display the current menu.
+	 */
 	public void Branch_Menu_Management() {
 		IManagerMenu menu_operator = new MenuOperator();
 		int choice;
@@ -97,10 +112,21 @@ public class BranchSystem{
 
 	//customer perspective
 
+	/**
+	 * Adds an order to the list of new orders.
+	 *
+	 * @param order The order to be added.
+	 */
 	public void addOrder(Order order) {
 		new_order_list.add(order);
 	}
 
+	/**
+	 * Collects an order based on its ID, moving it from the ready to pick up list to the completed order list.
+	 * Prints a message indicating the success or failure of the collection process.
+	 *
+	 * @param orderId The ID of the order to be collected.
+	 */
 	public void collectOrder(int orderId) {
 		for (Order order : ready_to_pickup_order_list) {
 			if (order.get_order_id() == orderId) {
@@ -116,6 +142,9 @@ public class BranchSystem{
 
 	//staff's perspective
 
+	/**
+	 * Displays the new orders by iterating through the new order list and calling DisplayOrder on each order.
+	 */
 	public void View_New_Order() {
 		System.out.println("New Orders:");
 		for (Order order : new_order_list) {
@@ -123,6 +152,11 @@ public class BranchSystem{
 		}
 	}
 
+	/**
+	 * Processes new orders by displaying them, prompting the user to select an order for processing,
+	 * and changing the order status to "Ready to Pick up" upon successful processing.
+	 * Prints messages to inform the user about the process and handles input validation.
+	 */
 	public void Process_Order() {
 		View_New_Order(); // Display new orders before processing
 
@@ -157,7 +191,11 @@ public class BranchSystem{
 		} while (!validInput);
 	}
 
-
+	/**
+	 * Checks for uncollected orders beyond their collection deadline in the ready to pick up order list.
+	 * If an order is beyond the deadline, it is removed from the ready to pick up list and added to the
+	 * cancelled order list. Prints a message for each cancelled order.
+	 */
 	public void checkUncollectedOrders() {
 		Iterator<Order> iterator = ready_to_pickup_order_list.iterator();
 		while (iterator.hasNext()) {
@@ -170,10 +208,20 @@ public class BranchSystem{
 		}
 	}
 
+	/**
+	 * Retrieves the current menu associated with this branch system.
+	 *
+	 * @return The current menu.
+	 */
 	public Menu getMenu() {
 		return menu;
 	}
 
+	/**
+	 * Sets the menu for this branch system.
+	 *
+	 * @param menu The menu to be set.
+	 */
 	public void setMenu(Menu menu) {
 		this.menu = menu;
 	}

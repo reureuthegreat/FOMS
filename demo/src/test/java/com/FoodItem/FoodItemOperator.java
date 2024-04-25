@@ -6,10 +6,17 @@ import com.Category.Category;
 import com.Category.CategoryReader;
 import com.Category.ICategoryReader;
 
+/**
+ * Provides operations to create and modify FoodItems.
+ */
 public class FoodItemOperator implements IFoodItemOperator{
 
-	@Override
-	public FoodItem createFoodItem() {
+	/**
+	 * Creates a new FoodItem based on user input.
+	 *
+	 * @return The newly created FoodItem object, or null if creation fails.
+	 */
+	public static FoodItem createFoodItem() {
 		Scanner scanner = new Scanner(System.in);
 
 		try{
@@ -49,6 +56,11 @@ public class FoodItemOperator implements IFoodItemOperator{
 		}
 	}
 
+	/**
+	 * Modifies the price of a FoodItem.
+	 *
+	 * @param foodItem The FoodItem whose price will be modified.
+	 */
 	@Override
 	public void modifyPrice(FoodItem foodItem) {
 
@@ -63,6 +75,11 @@ public class FoodItemOperator implements IFoodItemOperator{
 		}
 	}
 
+	/**
+	 * Modifies the description of a FoodItem.
+	 *
+	 * @param foodItem The FoodItem whose description will be modified.
+	 */
 	@Override
 	public void modifyDescription(FoodItem foodItem) {
 
@@ -76,6 +93,12 @@ public class FoodItemOperator implements IFoodItemOperator{
 			System.out.println("Error in modifying description " + e.getMessage());
 		}
 	}
+
+	/**
+	 * Modifies the category of a FoodItem.
+	 *
+	 * @param foodItem The FoodItem whose category will be modified.
+	 */
 
 	@Override
 	public void modifyCategory(FoodItem foodItem) {
@@ -91,6 +114,11 @@ public class FoodItemOperator implements IFoodItemOperator{
 		}
 	}
 
+	/**
+	 * Modifies the availability status of a FoodItem.
+	 *
+	 * @param foodItem The FoodItem whose availability status will be modified.
+	 */
 	@Override
 	public void modifyAvailability(FoodItem foodItem) {
 

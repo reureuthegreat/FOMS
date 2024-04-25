@@ -8,9 +8,19 @@ import java.util.Scanner;
 
 import com.FoodItem.FoodItem;
 
+/**
+ * Represents a shopping cart that implements the IShoppingCart interface.
+ */
 public class ShoppingCart implements IShoppingCart{
 
     // Helper method to add an item to the cart
+    /**
+     * Adds a specified FoodItem to the cart based on customer's menu.
+     *
+     * @param customerMenu An ArrayList of FoodItem objects representing the customer's menu.
+     * @param cart         The Cart object representing the shopping cart.
+     * @return True if the item was successfully added, false otherwise.
+     */
     private boolean addCartItem(ArrayList<FoodItem> customerMenu, Cart cart) {
         Scanner scanner = new Scanner(System.in);
 
@@ -36,6 +46,11 @@ public class ShoppingCart implements IShoppingCart{
     }
 
     // Helper method to remove an item from the cart
+    /**
+     * Removes a specified item from the cart based on its name.
+     *
+     * @param cart The Cart object representing the shopping cart.
+     */
     private void removeCartItem(Cart cart) {
         Scanner scanner = new Scanner(System.in);
 
@@ -54,6 +69,11 @@ public class ShoppingCart implements IShoppingCart{
     }
 
     // Helper method to update the quantity of an item in the cart
+    /**
+     * Updates the quantity of a specified item in the cart based on its name.
+     *
+     * @param cart The Cart object representing the shopping cart.
+     */
     private void updateCartItem(Cart cart) {
         Scanner scanner = new Scanner(System.in);
         cart.displayCart();
@@ -74,6 +94,12 @@ public class ShoppingCart implements IShoppingCart{
         System.out.println("Item not found in cart.");
     }
 
+    /**
+     * Creates a shopping cart based on the customer's menu of FoodItems and provides a menu for cart management.
+     *
+     * @param customerMenu An ArrayList of FoodItem objects representing the customer's menu.
+     * @return A HashMap representing the shopping cart with FoodItems and their quantities if checkout is completed, null otherwise.
+     */
     @Override
     public HashMap<FoodItem, Integer> shopping(ArrayList<FoodItem> customerMenu) {
 
