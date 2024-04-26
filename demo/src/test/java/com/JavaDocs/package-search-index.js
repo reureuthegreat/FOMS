@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.Accounts"},{"l":"com.BranchPackage"},{"l":"com.Cart"},{"l":"com.Category"},{"l":"com.FoodItem"},{"l":"com.Menu"},{"l":"com.Order"},{"l":"com.PaymentManagement"},{"l":"org.example"}];updateSearchResults();
