@@ -1,7 +1,7 @@
 package com.Accounts;
 import java.util.*;
-import com.Branch.Branch;
-import com.Branch.BranchSystem;
+import com.BranchPackage.Branch;
+import com.BranchPackage.BranchSystem;
 import java.util.Scanner;
 
 /**

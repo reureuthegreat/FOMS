@@ -14,13 +14,7 @@ import java.lang.reflect.Method;
  */
 public class PaymentMethodFactory {
 
-    /**
-     * Creates a new payment method instance dynamically based on the provided class name and parameters.
-     *
-     * @param className The name of the payment method class to create.
-     * @param params    The parameters required to create the payment method instance.
-     * @return An instance of the created payment method.
-     */
+
     public Object createPaymentMethod(String className, Object... params) {
         try {
             // Use Byte Buddy to create a new class implementing the interfaces
@@ -68,7 +62,7 @@ public class PaymentMethodFactory {
          * @param args   The arguments passed to the intercepted method.
          * @return The result of the getName method call.
          */
-        @RuntimeType
+
         public static Object interceptGetName(@Origin Method method, @AllArguments Object[] args) {
             try {
                 // Get the actual instance and cast it to iPaymentMethod
@@ -88,7 +82,6 @@ public class PaymentMethodFactory {
          * @param amount The amount parameter for processPayment.
          * @return The result of the processPayment method call.
          */
-        @RuntimeType
         public static boolean interceptProcessPayment(@Origin Method method, @AllArguments Object[] args, @AllArguments Object amount) {
             try {
                 // Get the actual instance and cast it to Payable

@@ -3,8 +3,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import com.Branch.Branch;
-import com.Branch.BranchSystem;
+import com.BranchPackage.Branch;
+import com.BranchPackage.BranchSystem;
 import com.FoodItem.FoodItem;
 import com.Menu.Menu;
 

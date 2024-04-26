@@ -1,25 +1,32 @@
-package com.Accounts;
-import com.BranchPackage.Branch;
+package com.BranchPackage;
+
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * Manages branches in the system, including adding, removing, and retrieving branches.
+ * Manages the operations related to branches, such as adding and removing branches.
  */
 public class BranchManagement {
+
+	/** The staff quota for a branch. */
+	int Quota;
+
+	/** The list of branches managed by this BranchManagement instance. */
 	static ArrayList<Branch> BranchList;
 
 	/**
-	 * Constructs a BranchManagement object and initializes the BranchList.
+	 * Initializes a new instance of BranchManagement with an empty list of branches.
 	 */
-	BranchManagement(){
+	public BranchManagement(){
 		BranchList = new ArrayList<>();
 	}
 
 	/**
-	 * Adds a new branch to the system.
-	 * @return True if the branch is successfully added, false otherwise.
+	 * Adds a new branch to the branch list.
+	 *
+	 * @return true if the branch is added successfully, false otherwise.
 	 */
 	public boolean AddBranch() {
 		Scanner sc = new Scanner(System.in);
@@ -28,7 +35,7 @@ public class BranchManagement {
 		System.out.println("Plesae enter Location of Branch:");
 		String Location = sc.nextLine();
 		System.out.println("Please enter Staff Quota for the " + branchName + " branch.");
-		int Quota=0;
+
 		boolean validInput = false;
 		do {
 			try {
@@ -56,8 +63,9 @@ public class BranchManagement {
 	}
 
 	/**
-	 * Removes a branch from the system.
-	 * @return True if the branch is successfully removed, false otherwise.
+	 * Removes a branch from the branch list.
+	 *
+	 * @return true if the branch is removed successfully, false otherwise.
 	 */
 	public boolean RemoveBranch() {
 		System.out.println("Please enter the name of the Branch you would like to remove: ");
@@ -75,7 +83,8 @@ public class BranchManagement {
 	}
 
 	/**
-	 * Retrieves the list of branches.
+	 * Retrieves the list of branches managed by this BranchManagement instance.
+	 *
 	 * @return The list of branches.
 	 */
 	public static ArrayList<Branch> getBranchList() {
@@ -84,21 +93,22 @@ public class BranchManagement {
 
 	/**
 	 * Retrieves a branch by its name.
+	 *
 	 * @param BranchName The name of the branch to retrieve.
-	 * @return The Branch object if found, null otherwise.
+	 * @return The branch if found, or null if not found.
 	 */
-	public Branch getBranchByName(String BranchName){ // pass string branch name
-		for(Branch branch: BranchList){//iterate thru list of branches to find the branch object.
-			if(branch.verifyBranchName(BranchName)){ // verify branch name.
+	public Branch getBranchByName(String BranchName){
+		for(Branch branch: BranchList){
+			if(branch.verifyBranchName(BranchName)){
 				return branch;
 			}
 		}
-		System.out.println("Branch does not exist!");
 		return null;
 	}
 
 	/**
-	 * Sets the list of branches.
+	 * Sets the list of branches managed by this BranchManagement instance.
+	 *
 	 * @param branchList The list of branches to set.
 	 */
 	public static void setBranchList(ArrayList<Branch> branchList) {

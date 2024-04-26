@@ -1,6 +1,6 @@
 package com.Accounts;
-import com.Branch.Branch;
-import com.Branch.BranchSystem;
+import com.BranchPackage.Branch;
+import com.BranchPackage.BranchSystem;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 

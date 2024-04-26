@@ -26,6 +26,7 @@ public class PaymentManagementApp {
                     System.out.println("Enter the Payment Method Name:");
                     String name = sc.nextLine();
                     PM.addPaymentMethod(name);
+                    System.out.println("Payment Method " + name + " successfully added!");
                     break;
                 case 2:
                     sc.nextLine();
