@@ -82,7 +82,7 @@ public class DisplayStaffList {
 							ArrayList<Account> Males = new ArrayList<>();
 							System.out.println("Females:");
 							for (Account account : Staffs) {
-								if (account.getGender() == "F") {
+								if (account.getGender().compareTo("F")==0) {
 									System.out.println(index + ".	Staff Name: " + account.getName());
 									System.out.println("	Staff Type: " + account.getRole());
 									index++;
@@ -130,8 +130,6 @@ public class DisplayStaffList {
 							}
 							Managers.clear();
 							Admins.clear();
-							Managers = null;
-							Admins = null;
 							break;
 						case 4:
 							//Age
