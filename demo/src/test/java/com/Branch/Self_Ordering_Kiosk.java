@@ -31,17 +31,14 @@ public class Self_Ordering_Kiosk {
 
 		if (option == 0) {
 			System.out.println("You chose Takeaway...");
-			sc.close();
 			return false;
 
 		} else if (option == 1) {
 			System.out.println("You chose Dine-in...");
-			sc.close();
 			return true;
 
 		} else {
 			System.out.println("Invalid option. Assuming you Dine-in... LOL");
-			sc.close();
 			return true;
 		}
 	}
